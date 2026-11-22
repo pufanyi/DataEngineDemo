@@ -228,5 +228,235 @@
       "right_wrist": "videos/right_to_left/ep4_toy_car_right_wrist.mp4"
     },
     "poster": "posters/right_to_left_ep4_toy_car_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_ep0_toy_train",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "ep0_toy_train",
+    "seed": 4,
+    "asset": "Toy Train (omniobject3d-toy_train_066)",
+    "frames": 351,
+    "duration_s": 11.7,
+    "fps": 30,
+    "final_xyz": [
+      0.238,
+      -0.133,
+      0.78
+    ],
+    "instruction": "Pick up the target object and place it on the right of the table",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/ep0_toy_train_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/ep0_toy_train_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/ep0_toy_train_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_ep0_toy_train_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_ep1_garage_kit",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "ep1_garage_kit",
+    "seed": 21,
+    "asset": "Garage Kit (omniobject3d-garage_kit_003)",
+    "frames": 368,
+    "duration_s": 12.3,
+    "fps": 30,
+    "final_xyz": [
+      0.334,
+      -0.134,
+      0.784
+    ],
+    "instruction": "Pick up the target object and place it on the right of the table",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/ep1_garage_kit_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/ep1_garage_kit_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/ep1_garage_kit_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_ep1_garage_kit_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_ep2_box",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "ep2_box",
+    "seed": 37,
+    "asset": "Box (google_scan-box_0399)",
+    "frames": 331,
+    "duration_s": 11.0,
+    "fps": 30,
+    "final_xyz": [
+      0.375,
+      -0.171,
+      0.807
+    ],
+    "instruction": "Pick up the target object and place it on the right of the table",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/ep2_box_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/ep2_box_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/ep2_box_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_ep2_box_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_ep3_toy_truck",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "ep3_toy_truck",
+    "seed": 126,
+    "asset": "Toy Truck (google_scan-toy_truck_0738)",
+    "frames": 326,
+    "duration_s": 10.9,
+    "fps": 30,
+    "final_xyz": [
+      0.305,
+      -0.097,
+      0.797
+    ],
+    "instruction": "Pick up the target object and place it on the right of the table",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/ep3_toy_truck_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/ep3_toy_truck_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/ep3_toy_truck_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_ep3_toy_truck_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_ep4_candle",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "ep4_candle",
+    "seed": 203,
+    "asset": "Candle (omniobject3d-candle_004)",
+    "frames": 331,
+    "duration_s": 11.0,
+    "fps": 30,
+    "final_xyz": [
+      0.36,
+      -0.181,
+      0.789
+    ],
+    "instruction": "Pick up the target object and place it on the right of the table",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/ep4_candle_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/ep4_candle_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/ep4_candle_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_ep4_candle_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_ep0_toy_train",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "ep0_toy_train",
+    "seed": 4,
+    "asset": "Toy Train (omniobject3d-toy_train_066)",
+    "frames": 326,
+    "duration_s": 10.9,
+    "fps": 30,
+    "final_xyz": [
+      -0.4,
+      -0.088,
+      0.779
+    ],
+    "instruction": "Pick up the target object and place it on the left of the table",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/ep0_toy_train_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/ep0_toy_train_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/ep0_toy_train_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_ep0_toy_train_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_ep1_box",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "ep1_box",
+    "seed": 111,
+    "asset": "Box (google_scan-box_0399)",
+    "frames": 339,
+    "duration_s": 11.3,
+    "fps": 30,
+    "final_xyz": [
+      -0.366,
+      -0.177,
+      0.807
+    ],
+    "instruction": "Pick up the target object and place it on the left of the table",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/ep1_box_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/ep1_box_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/ep1_box_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_ep1_box_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_ep2_pomegranate",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "ep2_pomegranate",
+    "seed": 116,
+    "asset": "Pomegranate (omniobject3d-pomegranate_020)",
+    "frames": 334,
+    "duration_s": 11.1,
+    "fps": 30,
+    "final_xyz": [
+      -0.36,
+      -0.12,
+      0.787
+    ],
+    "instruction": "Pick up the target object and place it on the left of the table",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/ep2_pomegranate_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/ep2_pomegranate_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/ep2_pomegranate_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_ep2_pomegranate_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_ep3_hot_dog",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "ep3_hot_dog",
+    "seed": 130,
+    "asset": "Hot Dog (omniobject3d-hot_dog_081)",
+    "frames": 375,
+    "duration_s": 12.5,
+    "fps": 30,
+    "final_xyz": [
+      -0.348,
+      -0.276,
+      0.791
+    ],
+    "instruction": "Pick up the target object and place it on the left of the table",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/ep3_hot_dog_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/ep3_hot_dog_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/ep3_hot_dog_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_ep3_hot_dog_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_ep4_facial_cream",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "ep4_facial_cream",
+    "seed": 233,
+    "asset": "Facial Cream (omniobject3d-facial_cream_021)",
+    "frames": 327,
+    "duration_s": 10.9,
+    "fps": 30,
+    "final_xyz": [
+      -0.362,
+      -0.189,
+      0.796
+    ],
+    "instruction": "Pick up the target object and place it on the left of the table",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/ep4_facial_cream_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/ep4_facial_cream_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/ep4_facial_cream_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_ep4_facial_cream_head.jpg"
   }
 ]

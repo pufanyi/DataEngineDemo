@@ -1,8 +1,104 @@
 [
   {
+    "id": "swap_objects_randomized_seed17",
+    "task": "swap_objects",
+    "task_label": "Dual-Arm Swap",
+    "slug": "randomized_seed17",
+    "seed": 17,
+    "asset": "Facial cream and pomegranate",
+    "frames": 702,
+    "duration_s": 23.4,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Swap XY error",
+        "value": "2.7 / 15.4 mm"
+      },
+      {
+        "label": "Left / right wrist travel",
+        "value": "2.11 / 2.24 m"
+      },
+      {
+        "label": "Lighting",
+        "value": "Red"
+      }
+    ],
+    "instruction": "Swap the facial cream with the pomegranate",
+    "videos": {
+      "head_cam": "videos/swap_objects/randomized_seed17_head_cam.mp4",
+      "left_wrist": "videos/swap_objects/randomized_seed17_left_wrist.mp4",
+      "right_wrist": "videos/swap_objects/randomized_seed17_right_wrist.mp4"
+    },
+    "poster": "posters/swap_objects_randomized_seed17_head.jpg"
+  },
+  {
+    "id": "press_button_randomized_seed0",
+    "task": "press_button",
+    "task_label": "Randomized Button Press",
+    "slug": "randomized_seed0",
+    "seed": 0,
+    "asset": "Red button",
+    "frames": 117,
+    "duration_s": 3.9,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Peak cap travel",
+        "value": "20.0 mm"
+      },
+      {
+        "label": "Other caps",
+        "value": "under 0.001 mm"
+      },
+      {
+        "label": "Lighting",
+        "value": "Deep blue"
+      }
+    ],
+    "instruction": "Press the red button",
+    "videos": {
+      "head_cam": "videos/press_button/randomized_seed0_head_cam.mp4",
+      "left_wrist": "videos/press_button/randomized_seed0_left_wrist.mp4",
+      "right_wrist": "videos/press_button/randomized_seed0_right_wrist.mp4"
+    },
+    "poster": "posters/press_button_randomized_seed0_head.jpg"
+  },
+  {
+    "id": "press_button_randomized_seed6",
+    "task": "press_button",
+    "task_label": "Randomized Button Press",
+    "slug": "randomized_seed6",
+    "seed": 6,
+    "asset": "Blue button",
+    "frames": 114,
+    "duration_s": 3.8,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Peak cap travel",
+        "value": "20.0 mm"
+      },
+      {
+        "label": "Other caps",
+        "value": "under 0.001 mm"
+      },
+      {
+        "label": "Lighting",
+        "value": "Green"
+      }
+    ],
+    "instruction": "Press the blue button",
+    "videos": {
+      "head_cam": "videos/press_button/randomized_seed6_head_cam.mp4",
+      "left_wrist": "videos/press_button/randomized_seed6_left_wrist.mp4",
+      "right_wrist": "videos/press_button/randomized_seed6_right_wrist.mp4"
+    },
+    "poster": "posters/press_button_randomized_seed6_head.jpg"
+  },
+  {
     "id": "swap_objects_pomegranate_box",
     "task": "swap_objects",
-    "task_label": "Swap Objects",
+    "task_label": "Single-Arm Swap",
     "slug": "pomegranate_box",
     "seed": 1,
     "asset": "Pomegranate and box",
@@ -30,7 +126,7 @@
   {
     "id": "press_button_red",
     "task": "press_button",
-    "task_label": "Press Button",
+    "task_label": "Fixed-Layout Button Press",
     "slug": "red",
     "seed": 0,
     "asset": "Red button",
@@ -58,7 +154,7 @@
   {
     "id": "press_button_blue",
     "task": "press_button",
-    "task_label": "Press Button",
+    "task_label": "Fixed-Layout Button Press",
     "slug": "blue",
     "seed": 0,
     "asset": "Blue button",

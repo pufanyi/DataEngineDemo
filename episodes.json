@@ -831,32 +831,104 @@
     "poster": "posters/object_in_container_dual_x5_seed_6812_head.jpg"
   },
   {
+    "id": "pen_in_penholder_franka_seed_1377",
+    "task": "pen_in_penholder",
+    "task_label": "Pen in Penholder",
+    "preset": "franka_pen_in_penholder",
+    "slug": "franka_seed_1377",
+    "seed": 1377,
+    "asset_seed": 7,
+    "asset": "One pen and holder",
+    "frames": 203,
+    "duration_s": 6.8,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Pens inserted",
+        "value": "1"
+      },
+      {
+        "label": "Min. pen clearance",
+        "value": "8.4 mm"
+      },
+      {
+        "label": "Distractors",
+        "value": "5"
+      }
+    ],
+    "instruction": "Put the pen in the pen holder.",
+    "videos": {
+      "head_cam": "videos/pen_in_penholder/franka_seed_1377_head_cam.mp4",
+      "wrist": "videos/pen_in_penholder/franka_seed_1377_wrist.mp4"
+    },
+    "poster": "posters/pen_in_penholder_franka_seed_1377_head.jpg"
+  },
+  {
     "id": "pen_in_penholder_franka_no_distractors_seed_1377",
     "task": "pen_in_penholder",
     "task_label": "Pen in Penholder",
     "preset": "franka_pen_in_penholder_no_distractors",
     "slug": "franka_no_distractors_seed_1377",
     "seed": 1377,
-    "asset": "Two pens and holder",
-    "frames": 443,
-    "duration_s": 14.8,
+    "asset_seed": 7,
+    "asset": "One pen and holder",
+    "frames": 188,
+    "duration_s": 6.3,
     "fps": 30,
     "metrics": [
       {
         "label": "Pens inserted",
-        "value": "2"
+        "value": "1"
       },
       {
         "label": "Min. pen clearance",
-        "value": "8.0 mm"
+        "value": "9.1 mm"
+      },
+      {
+        "label": "Distractors",
+        "value": "0"
       }
     ],
-    "instruction": "Put both pens in the pen holder.",
+    "instruction": "Put the pen in the pen holder.",
     "videos": {
       "head_cam": "videos/pen_in_penholder/franka_no_distractors_seed_1377_head_cam.mp4",
       "wrist": "videos/pen_in_penholder/franka_no_distractors_seed_1377_wrist.mp4"
     },
     "poster": "posters/pen_in_penholder_franka_no_distractors_seed_1377_head.jpg"
+  },
+  {
+    "id": "pen_in_penholder_dual_x5_seed_5",
+    "task": "pen_in_penholder",
+    "task_label": "Pen in Penholder",
+    "preset": "dual_x5_pen_in_penholder",
+    "slug": "dual_x5_seed_5",
+    "seed": 5,
+    "asset_seed": 0,
+    "asset": "One pen and holder",
+    "frames": 403,
+    "duration_s": 13.4,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Pens inserted",
+        "value": "1"
+      },
+      {
+        "label": "Holder tilt",
+        "value": "0.0°"
+      },
+      {
+        "label": "Distractors",
+        "value": "5"
+      }
+    ],
+    "instruction": "Move the pen holder to the center of the table and put the pen in it.",
+    "videos": {
+      "head_cam": "videos/pen_in_penholder/dual_x5_seed_5_head_cam.mp4",
+      "left_wrist": "videos/pen_in_penholder/dual_x5_seed_5_left_wrist.mp4",
+      "right_wrist": "videos/pen_in_penholder/dual_x5_seed_5_right_wrist.mp4"
+    },
+    "poster": "posters/pen_in_penholder_dual_x5_seed_5_head.jpg"
   },
   {
     "id": "pen_in_penholder_dual_x5_no_distractors_seed_14",
@@ -865,9 +937,10 @@
     "preset": "dual_x5_pen_in_penholder_no_distractors",
     "slug": "dual_x5_no_distractors_seed_14",
     "seed": 14,
+    "asset_seed": 3,
     "asset": "Two pens and holder",
-    "frames": 585,
-    "duration_s": 19.5,
+    "frames": 587,
+    "duration_s": 19.6,
     "fps": 30,
     "metrics": [
       {
@@ -877,9 +950,13 @@
       {
         "label": "Holder tilt",
         "value": "0.0°"
+      },
+      {
+        "label": "Distractors",
+        "value": "0"
       }
     ],
-    "instruction": "Move the pen holder to the center of the table and put both pens in it.",
+    "instruction": "Move the pen holder to the center of the table and put the 2 pens in it.",
     "videos": {
       "head_cam": "videos/pen_in_penholder/dual_x5_no_distractors_seed_14_head_cam.mp4",
       "left_wrist": "videos/pen_in_penholder/dual_x5_no_distractors_seed_14_left_wrist.mp4",
@@ -888,14 +965,49 @@
     "poster": "posters/pen_in_penholder_dual_x5_no_distractors_seed_14_head.jpg"
   },
   {
+    "id": "pen_in_penholder_dual_x5_held_seed_5",
+    "task": "pen_in_penholder",
+    "task_label": "Pen in Penholder",
+    "preset": "dual_x5_pen_in_penholder_held",
+    "slug": "dual_x5_held_seed_5",
+    "seed": 5,
+    "asset_seed": 5,
+    "asset": "One pen and holder",
+    "frames": 303,
+    "duration_s": 10.1,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Pens inserted",
+        "value": "1"
+      },
+      {
+        "label": "Holder tilt",
+        "value": "2.7°"
+      },
+      {
+        "label": "Distractors",
+        "value": "5"
+      }
+    ],
+    "instruction": "Hold the pen holder upright and put the pen in it with the other arm.",
+    "videos": {
+      "head_cam": "videos/pen_in_penholder/dual_x5_held_seed_5_head_cam.mp4",
+      "left_wrist": "videos/pen_in_penholder/dual_x5_held_seed_5_left_wrist.mp4",
+      "right_wrist": "videos/pen_in_penholder/dual_x5_held_seed_5_right_wrist.mp4"
+    },
+    "poster": "posters/pen_in_penholder_dual_x5_held_seed_5_head.jpg"
+  },
+  {
     "id": "pen_in_penholder_dual_x5_held_no_distractors_seed_5",
     "task": "pen_in_penholder",
     "task_label": "Pen in Penholder",
     "preset": "dual_x5_pen_in_penholder_held_no_distractors",
     "slug": "dual_x5_held_no_distractors_seed_5",
     "seed": 5,
+    "asset_seed": 0,
     "asset": "One pen and holder",
-    "frames": 325,
+    "frames": 323,
     "duration_s": 10.8,
     "fps": 30,
     "metrics": [
@@ -905,7 +1017,11 @@
       },
       {
         "label": "Holder tilt",
-        "value": "3.8°"
+        "value": "3.7°"
+      },
+      {
+        "label": "Distractors",
+        "value": "0"
       }
     ],
     "instruction": "Hold the pen holder upright and put the pen in it with the other arm.",

@@ -1,5 +1,89 @@
 [
   {
+    "id": "swap_objects_pomegranate_box",
+    "task": "swap_objects",
+    "task_label": "Swap Objects",
+    "slug": "pomegranate_box",
+    "seed": 1,
+    "asset": "Pomegranate and box",
+    "frames": 482,
+    "duration_s": 16.1,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Swap XY error",
+        "value": "5.0 / 5.3 mm"
+      },
+      {
+        "label": "Stable window",
+        "value": "0.50 s"
+      }
+    ],
+    "instruction": "Swap the pomegranate with the box",
+    "videos": {
+      "head_cam": "videos/swap_objects/pomegranate_box_head_cam.mp4",
+      "left_wrist": "videos/swap_objects/pomegranate_box_left_wrist.mp4",
+      "right_wrist": "videos/swap_objects/pomegranate_box_right_wrist.mp4"
+    },
+    "poster": "posters/swap_objects_pomegranate_box_head.jpg"
+  },
+  {
+    "id": "press_button_red",
+    "task": "press_button",
+    "task_label": "Press Button",
+    "slug": "red",
+    "seed": 0,
+    "asset": "Red button",
+    "frames": 114,
+    "duration_s": 3.8,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Peak cap travel",
+        "value": "20.0 mm"
+      },
+      {
+        "label": "Other caps",
+        "value": "under 0.001 mm"
+      }
+    ],
+    "instruction": "Press the red button",
+    "videos": {
+      "head_cam": "videos/press_button/red_head_cam.mp4",
+      "left_wrist": "videos/press_button/red_left_wrist.mp4",
+      "right_wrist": "videos/press_button/red_right_wrist.mp4"
+    },
+    "poster": "posters/press_button_red_head.jpg"
+  },
+  {
+    "id": "press_button_blue",
+    "task": "press_button",
+    "task_label": "Press Button",
+    "slug": "blue",
+    "seed": 0,
+    "asset": "Blue button",
+    "frames": 114,
+    "duration_s": 3.8,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "Peak cap travel",
+        "value": "20.0 mm"
+      },
+      {
+        "label": "Other caps",
+        "value": "under 0.001 mm"
+      }
+    ],
+    "instruction": "Press the blue button",
+    "videos": {
+      "head_cam": "videos/press_button/blue_head_cam.mp4",
+      "left_wrist": "videos/press_button/blue_left_wrist.mp4",
+      "right_wrist": "videos/press_button/blue_right_wrist.mp4"
+    },
+    "poster": "posters/press_button_blue_head.jpg"
+  },
+  {
     "id": "left_to_right_ep0_dinosaur",
     "task": "left_to_right",
     "task_label": "Push Left → Right",

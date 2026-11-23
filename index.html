@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dual-X5 Bimanual Tabletop Transfer — Push &amp; Pick-and-Place Showcase</title>
+  <title>DataEngineDemo | Dual-X5 Tabletop Manipulation</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -119,6 +119,8 @@
     .tag-r2l { color: var(--accent-2); font-size: 12px; font-weight: 600; background: rgba(167,139,250,0.14); padding: 3px 9px; border-radius: 999px; }
     .tag-p2r { color: var(--green); font-size: 12px; font-weight: 600; background: rgba(52,211,153,0.14); padding: 3px 9px; border-radius: 999px; }
     .tag-p2l { color: var(--amber); font-size: 12px; font-weight: 600; background: rgba(251,191,36,0.14); padding: 3px 9px; border-radius: 999px; }
+    .tag-swap { color: #f0abfc; font-size: 12px; font-weight: 600; background: rgba(240,171,252,0.14); padding: 3px 9px; border-radius: 999px; }
+    .tag-press { color: #5eead4; font-size: 12px; font-weight: 600; background: rgba(94,234,212,0.14); padding: 3px 9px; border-radius: 999px; }
     .spec-list { list-style: none; font-size: 14px; color: var(--muted); }
     .spec-list li { padding: 5px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); }
     .spec-list li:last-child { border-bottom: none; }
@@ -295,35 +297,32 @@
     <header class="hero">
       <div class="badge-row">
         <span class="badge">Isaac Sim 6.2 · PhysX</span>
-        <span class="badge purple">Dual ARX X5 Bimanual</span>
+        <span class="badge purple">Dual ARX X5</span>
         <span class="badge green">LeRobot v3.0 · cosmos-action/0.1.10</span>
       </div>
-      <h1>Dual-X5 Bimanual Transfer: Push &amp; Pick-and-Place</h1>
+      <h1>Dual-X5 Tabletop Manipulation</h1>
       <p class="subtitle">
-        Synthetic bimanual tabletop manipulation demonstrations generated with InternDataEngine across 4 symmetric tasks
-        (Push Left↔Right and Pick &amp; Place Left↔Right), featuring bimanual tabletop handoff, full 6-layer domain
-        randomization, and unified LeRobot v3.0 (AgiBotWorld2026) export.
+        Physics-validated InternDataEngine demonstrations for pushing, pick-and-place, object swapping,
+        and pressing a button selected by color.
       </p>
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Tasks</div>
-          <div class="stat-value">4 Symmetric</div>
-          <div class="stat-sub">Push L↔R &amp; Pick-and-Place L↔R</div>
+          <div class="stat-label">Task Presets</div>
+          <div class="stat-value" id="task-count"></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Accepted Episodes</div>
-          <div class="stat-value">20 / 20</div>
-          <div class="stat-sub">5 per task · 100% validated</div>
+          <div class="stat-value" id="episode-count"></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Total Frames</div>
-          <div class="stat-value">12,159</div>
-          <div class="stat-sub">30 fps · 3 synchronized cameras</div>
+          <div class="stat-value" id="frame-count"></div>
+          <div class="stat-sub">30 fps</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">AV1 Dataset Size</div>
-          <div class="stat-value">~84 MB</div>
-          <div class="stat-sub">57.8 MB (Push) + ~26 MB (Pick &amp; Place)</div>
+          <div class="stat-label">Synchronized Views</div>
+          <div class="stat-value">3</div>
+          <div class="stat-sub">Head and both wrists</div>
         </div>
       </div>
     </header>
@@ -331,6 +330,20 @@
     <section>
       <h2>Task Design &amp; Randomization Overview</h2>
       <div class="overview-grid">
+        <div class="card">
+          <h3>Swap Objects <span class="tag-swap">1 Episode · L40S</span></h3>
+          <ul class="spec-list">
+            <li>The right arm uses a temporary tabletop spot to swap the pomegranate and the box.</li>
+            <li>Both objects finish within 6 mm of the other's measured starting position and pass a 0.5-second stability check.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Press Button <span class="tag-press">2 Episodes · L40S</span></h3>
+          <ul class="spec-list">
+            <li>Separate instructions select the red or blue button from the same red, blue, and green layout.</li>
+            <li>The selected cap travels 20.0 mm and returns to rest. Other caps move less than 0.001 mm.</li>
+          </ul>
+        </div>
         <div class="card">
           <h3>Push Left → Right <span class="tag-l2r">5 Episodes · RTX 5090</span></h3>
           <ul class="spec-list">
@@ -377,15 +390,17 @@
       </div>
     </section>
 
-    <section>
+    <section id="gallery">
       <h2>Synchronized 3-View Episode Gallery</h2>
       <div class="toolbar">
         <div class="tabs" id="filter-tabs">
-          <button class="btn active" data-filter="all">All Episodes (20)</button>
-          <button class="btn" data-filter="left_to_right">Push L → R (5)</button>
-          <button class="btn" data-filter="right_to_left">Push R → L (5)</button>
-          <button class="btn" data-filter="pick_left_place_right">Pick &amp; Place L → R (5)</button>
-          <button class="btn" data-filter="pick_right_place_left">Pick &amp; Place R → L (5)</button>
+          <button class="btn active" data-filter="all">All Episodes</button>
+          <button class="btn" data-filter="swap_objects">Swap Objects</button>
+          <button class="btn" data-filter="press_button">Press Button</button>
+          <button class="btn" data-filter="left_to_right">Push L → R</button>
+          <button class="btn" data-filter="right_to_left">Push R → L</button>
+          <button class="btn" data-filter="pick_left_place_right">Pick &amp; Place L → R</button>
+          <button class="btn" data-filter="pick_right_place_left">Pick &amp; Place R → L</button>
         </div>
         <div class="controls">
           <span class="speed-label">Playback Speed:</span>
@@ -432,7 +447,13 @@
       filtered.forEach((ep, idx) => {
         const card = document.createElement("article");
         card.className = "ep-card";
-        const tagMap = { left_to_right: "tag-l2r", right_to_left: "tag-r2l", pick_left_place_right: "tag-p2r", pick_right_place_left: "tag-p2l" }; const tagClass = tagMap[ep.task] || "tag-l2r";
+        const tagMap = {
+          left_to_right: "tag-l2r", right_to_left: "tag-r2l",
+          pick_left_place_right: "tag-p2r", pick_right_place_left: "tag-p2l",
+          swap_objects: "tag-swap", press_button: "tag-press"
+        };
+        const tagClass = tagMap[ep.task] || "tag-l2r";
+        const measurements = ep.metrics ?? [{ label: "Final XYZ", value: `[${ep.final_xyz.join(", ")}]` }];
         card.innerHTML = `
           <div class="ep-header">
             <div class="ep-title">
@@ -442,7 +463,7 @@
             <div class="ep-meta">
               <span>Seed <code>${ep.seed}</code></span>
               <span><code>${ep.frames}</code> frames (${ep.duration_s}s @ ${ep.fps}fps)</span>
-              <span>Final XYZ: <code>[${ep.final_xyz.join(", ")}]</code></span>
+              ${measurements.map(metric => `<span>${metric.label} <code>${metric.value}</code></span>`).join("")}
               <span class="pill-ok">✓ Accepted</span>
             </div>
           </div>
@@ -526,14 +547,17 @@
       });
     }
 
-    document.querySelectorAll("#filter-tabs .btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll("#filter-tabs .btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        currentFilter = btn.dataset.filter;
-        renderEpisodes();
+    const filterButtons = [...document.querySelectorAll("#filter-tabs .btn")];
+
+    function selectFilter(filter) {
+      currentFilter = filterButtons.some(button => button.dataset.filter === filter) ? filter : "all";
+      filterButtons.forEach(button => {
+        const selected = button.dataset.filter === currentFilter;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-pressed", selected);
       });
-    });
+      renderEpisodes();
+    }
 
     document.querySelectorAll(".speed-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -544,9 +568,27 @@
       });
     });
 
-    const INLINE_EPISODES = [{"id": "left_to_right_ep0_dinosaur", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep0_dinosaur", "seed": 0, "asset": "Dinosaur (omniobject3d-dinosaur_008)", "frames": 1068, "duration_s": 35.6, "fps": 30, "final_xyz": [0.389, -0.152, 0.804], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep0_dinosaur_head_cam.mp4", "left_wrist": "videos/left_to_right/ep0_dinosaur_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep0_dinosaur_right_wrist.mp4"}, "poster": "posters/left_to_right_ep0_dinosaur_head.jpg"}, {"id": "left_to_right_ep1_shoe", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep1_shoe", "seed": 1, "asset": "Shoe (google_scan-shoe_0964)", "frames": 688, "duration_s": 22.9, "fps": 30, "final_xyz": [0.314, -0.175, 0.809], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep1_shoe_head_cam.mp4", "left_wrist": "videos/left_to_right/ep1_shoe_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep1_shoe_right_wrist.mp4"}, "poster": "posters/left_to_right_ep1_shoe_head.jpg"}, {"id": "left_to_right_ep2_teanet", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep2_teanet", "seed": 6, "asset": "Tea Strainer (robotwin-053_teanet-6)", "frames": 1088, "duration_s": 36.3, "fps": 30, "final_xyz": [0.387, -0.201, 0.772], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep2_teanet_head_cam.mp4", "left_wrist": "videos/left_to_right/ep2_teanet_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep2_teanet_right_wrist.mp4"}, "poster": "posters/left_to_right_ep2_teanet_head.jpg"}, {"id": "left_to_right_ep3_box", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep3_box", "seed": 7, "asset": "Box (google_scan-box_0928)", "frames": 367, "duration_s": 12.2, "fps": 30, "final_xyz": [0.383, -0.175, 0.788], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep3_box_head_cam.mp4", "left_wrist": "videos/left_to_right/ep3_box_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep3_box_right_wrist.mp4"}, "poster": "posters/left_to_right_ep3_box_head.jpg"}, {"id": "left_to_right_ep4_toy_car", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep4_toy_car", "seed": 9, "asset": "Toy Car (google_scan-toy_car_0858)", "frames": 723, "duration_s": 24.1, "fps": 30, "final_xyz": [0.31, -0.171, 0.812], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep4_toy_car_head_cam.mp4", "left_wrist": "videos/left_to_right/ep4_toy_car_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep4_toy_car_right_wrist.mp4"}, "poster": "posters/left_to_right_ep4_toy_car_head.jpg"}, {"id": "right_to_left_ep0_shoe", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep0_shoe", "seed": 1, "asset": "Shoe (google_scan-shoe_0964)", "frames": 1178, "duration_s": 39.3, "fps": 30, "final_xyz": [-0.266, -0.218, 0.809], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep0_shoe_head_cam.mp4", "left_wrist": "videos/right_to_left/ep0_shoe_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep0_shoe_right_wrist.mp4"}, "poster": "posters/right_to_left_ep0_shoe_head.jpg"}, {"id": "right_to_left_ep1_dinosaur", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep1_dinosaur", "seed": 0, "asset": "Dinosaur (omniobject3d-dinosaur_008)", "frames": 918, "duration_s": 30.6, "fps": 30, "final_xyz": [-0.342, -0.147, 0.809], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep1_dinosaur_head_cam.mp4", "left_wrist": "videos/right_to_left/ep1_dinosaur_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep1_dinosaur_right_wrist.mp4"}, "poster": "posters/right_to_left_ep1_dinosaur_head.jpg"}, {"id": "right_to_left_ep2_sausage", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep2_sausage", "seed": 5, "asset": "Sausage (omniobject3d-sausage_029)", "frames": 1098, "duration_s": 36.6, "fps": 30, "final_xyz": [-0.35, -0.185, 0.777], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep2_sausage_head_cam.mp4", "left_wrist": "videos/right_to_left/ep2_sausage_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep2_sausage_right_wrist.mp4"}, "poster": "posters/right_to_left_ep2_sausage_head.jpg"}, {"id": "right_to_left_ep3_box", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep3_box", "seed": 7, "asset": "Box (google_scan-box_0928)", "frames": 529, "duration_s": 17.6, "fps": 30, "final_xyz": [-0.371, -0.156, 0.789], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep3_box_head_cam.mp4", "left_wrist": "videos/right_to_left/ep3_box_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep3_box_right_wrist.mp4"}, "poster": "posters/right_to_left_ep3_box_head.jpg"}, {"id": "right_to_left_ep4_toy_car", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep4_toy_car", "seed": 9, "asset": "Toy Car (google_scan-toy_car_0858)", "frames": 1094, "duration_s": 36.5, "fps": 30, "final_xyz": [-0.304, -0.161, 0.812], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep4_toy_car_head_cam.mp4", "left_wrist": "videos/right_to_left/ep4_toy_car_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep4_toy_car_right_wrist.mp4"}, "poster": "posters/right_to_left_ep4_toy_car_head.jpg"}, {"id": "pick_left_place_right_ep0_toy_train", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep0_toy_train", "seed": 4, "asset": "Toy Train (omniobject3d-toy_train_066)", "frames": 351, "duration_s": 11.7, "fps": 30, "final_xyz": [0.238, -0.133, 0.78], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep0_toy_train_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep0_toy_train_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep0_toy_train_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep0_toy_train_head.jpg"}, {"id": "pick_left_place_right_ep1_garage_kit", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep1_garage_kit", "seed": 21, "asset": "Garage Kit (omniobject3d-garage_kit_003)", "frames": 368, "duration_s": 12.3, "fps": 30, "final_xyz": [0.334, -0.134, 0.784], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep1_garage_kit_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep1_garage_kit_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep1_garage_kit_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep1_garage_kit_head.jpg"}, {"id": "pick_left_place_right_ep2_box", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep2_box", "seed": 37, "asset": "Box (google_scan-box_0399)", "frames": 331, "duration_s": 11.0, "fps": 30, "final_xyz": [0.375, -0.171, 0.807], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep2_box_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep2_box_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep2_box_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep2_box_head.jpg"}, {"id": "pick_left_place_right_ep3_toy_truck", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep3_toy_truck", "seed": 126, "asset": "Toy Truck (google_scan-toy_truck_0738)", "frames": 326, "duration_s": 10.9, "fps": 30, "final_xyz": [0.305, -0.097, 0.797], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep3_toy_truck_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep3_toy_truck_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep3_toy_truck_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep3_toy_truck_head.jpg"}, {"id": "pick_left_place_right_ep4_candle", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep4_candle", "seed": 203, "asset": "Candle (omniobject3d-candle_004)", "frames": 331, "duration_s": 11.0, "fps": 30, "final_xyz": [0.36, -0.181, 0.789], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep4_candle_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep4_candle_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep4_candle_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep4_candle_head.jpg"}, {"id": "pick_right_place_left_ep0_toy_train", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep0_toy_train", "seed": 4, "asset": "Toy Train (omniobject3d-toy_train_066)", "frames": 326, "duration_s": 10.9, "fps": 30, "final_xyz": [-0.4, -0.088, 0.779], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep0_toy_train_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep0_toy_train_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep0_toy_train_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep0_toy_train_head.jpg"}, {"id": "pick_right_place_left_ep1_box", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep1_box", "seed": 111, "asset": "Box (google_scan-box_0399)", "frames": 339, "duration_s": 11.3, "fps": 30, "final_xyz": [-0.366, -0.177, 0.807], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep1_box_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep1_box_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep1_box_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep1_box_head.jpg"}, {"id": "pick_right_place_left_ep2_pomegranate", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep2_pomegranate", "seed": 116, "asset": "Pomegranate (omniobject3d-pomegranate_020)", "frames": 334, "duration_s": 11.1, "fps": 30, "final_xyz": [-0.36, -0.12, 0.787], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep2_pomegranate_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep2_pomegranate_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep2_pomegranate_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep2_pomegranate_head.jpg"}, {"id": "pick_right_place_left_ep3_hot_dog", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep3_hot_dog", "seed": 130, "asset": "Hot Dog (omniobject3d-hot_dog_081)", "frames": 375, "duration_s": 12.5, "fps": 30, "final_xyz": [-0.348, -0.276, 0.791], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep3_hot_dog_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep3_hot_dog_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep3_hot_dog_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep3_hot_dog_head.jpg"}, {"id": "pick_right_place_left_ep4_facial_cream", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep4_facial_cream", "seed": 233, "asset": "Facial Cream (omniobject3d-facial_cream_021)", "frames": 327, "duration_s": 10.9, "fps": 30, "final_xyz": [-0.362, -0.189, 0.796], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep4_facial_cream_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep4_facial_cream_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep4_facial_cream_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep4_facial_cream_head.jpg"}];
+    const INLINE_EPISODES = [
+      {"id": "swap_objects_pomegranate_box", "task": "swap_objects", "task_label": "Swap Objects", "slug": "pomegranate_box", "seed": 1, "asset": "Pomegranate and box", "frames": 482, "duration_s": 16.1, "fps": 30, "metrics": [{"label": "Swap XY error", "value": "5.0 / 5.3 mm"}, {"label": "Stable window", "value": "0.50 s"}], "instruction": "Swap the pomegranate with the box", "videos": {"head_cam": "videos/swap_objects/pomegranate_box_head_cam.mp4", "left_wrist": "videos/swap_objects/pomegranate_box_left_wrist.mp4", "right_wrist": "videos/swap_objects/pomegranate_box_right_wrist.mp4"}, "poster": "posters/swap_objects_pomegranate_box_head.jpg"},
+      {"id": "press_button_red", "task": "press_button", "task_label": "Press Button", "slug": "red", "seed": 0, "asset": "Red button", "frames": 114, "duration_s": 3.8, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}], "instruction": "Press the red button", "videos": {"head_cam": "videos/press_button/red_head_cam.mp4", "left_wrist": "videos/press_button/red_left_wrist.mp4", "right_wrist": "videos/press_button/red_right_wrist.mp4"}, "poster": "posters/press_button_red_head.jpg"},
+      {"id": "press_button_blue", "task": "press_button", "task_label": "Press Button", "slug": "blue", "seed": 0, "asset": "Blue button", "frames": 114, "duration_s": 3.8, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}], "instruction": "Press the blue button", "videos": {"head_cam": "videos/press_button/blue_head_cam.mp4", "left_wrist": "videos/press_button/blue_left_wrist.mp4", "right_wrist": "videos/press_button/blue_right_wrist.mp4"}, "poster": "posters/press_button_blue_head.jpg"},
+      {"id": "left_to_right_ep0_dinosaur", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep0_dinosaur", "seed": 0, "asset": "Dinosaur (omniobject3d-dinosaur_008)", "frames": 1068, "duration_s": 35.6, "fps": 30, "final_xyz": [0.389, -0.152, 0.804], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep0_dinosaur_head_cam.mp4", "left_wrist": "videos/left_to_right/ep0_dinosaur_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep0_dinosaur_right_wrist.mp4"}, "poster": "posters/left_to_right_ep0_dinosaur_head.jpg"}, {"id": "left_to_right_ep1_shoe", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep1_shoe", "seed": 1, "asset": "Shoe (google_scan-shoe_0964)", "frames": 688, "duration_s": 22.9, "fps": 30, "final_xyz": [0.314, -0.175, 0.809], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep1_shoe_head_cam.mp4", "left_wrist": "videos/left_to_right/ep1_shoe_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep1_shoe_right_wrist.mp4"}, "poster": "posters/left_to_right_ep1_shoe_head.jpg"}, {"id": "left_to_right_ep2_teanet", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep2_teanet", "seed": 6, "asset": "Tea Strainer (robotwin-053_teanet-6)", "frames": 1088, "duration_s": 36.3, "fps": 30, "final_xyz": [0.387, -0.201, 0.772], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep2_teanet_head_cam.mp4", "left_wrist": "videos/left_to_right/ep2_teanet_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep2_teanet_right_wrist.mp4"}, "poster": "posters/left_to_right_ep2_teanet_head.jpg"}, {"id": "left_to_right_ep3_box", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep3_box", "seed": 7, "asset": "Box (google_scan-box_0928)", "frames": 367, "duration_s": 12.2, "fps": 30, "final_xyz": [0.383, -0.175, 0.788], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep3_box_head_cam.mp4", "left_wrist": "videos/left_to_right/ep3_box_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep3_box_right_wrist.mp4"}, "poster": "posters/left_to_right_ep3_box_head.jpg"}, {"id": "left_to_right_ep4_toy_car", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep4_toy_car", "seed": 9, "asset": "Toy Car (google_scan-toy_car_0858)", "frames": 723, "duration_s": 24.1, "fps": 30, "final_xyz": [0.31, -0.171, 0.812], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep4_toy_car_head_cam.mp4", "left_wrist": "videos/left_to_right/ep4_toy_car_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep4_toy_car_right_wrist.mp4"}, "poster": "posters/left_to_right_ep4_toy_car_head.jpg"}, {"id": "right_to_left_ep0_shoe", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep0_shoe", "seed": 1, "asset": "Shoe (google_scan-shoe_0964)", "frames": 1178, "duration_s": 39.3, "fps": 30, "final_xyz": [-0.266, -0.218, 0.809], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep0_shoe_head_cam.mp4", "left_wrist": "videos/right_to_left/ep0_shoe_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep0_shoe_right_wrist.mp4"}, "poster": "posters/right_to_left_ep0_shoe_head.jpg"}, {"id": "right_to_left_ep1_dinosaur", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep1_dinosaur", "seed": 0, "asset": "Dinosaur (omniobject3d-dinosaur_008)", "frames": 918, "duration_s": 30.6, "fps": 30, "final_xyz": [-0.342, -0.147, 0.809], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep1_dinosaur_head_cam.mp4", "left_wrist": "videos/right_to_left/ep1_dinosaur_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep1_dinosaur_right_wrist.mp4"}, "poster": "posters/right_to_left_ep1_dinosaur_head.jpg"}, {"id": "right_to_left_ep2_sausage", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep2_sausage", "seed": 5, "asset": "Sausage (omniobject3d-sausage_029)", "frames": 1098, "duration_s": 36.6, "fps": 30, "final_xyz": [-0.35, -0.185, 0.777], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep2_sausage_head_cam.mp4", "left_wrist": "videos/right_to_left/ep2_sausage_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep2_sausage_right_wrist.mp4"}, "poster": "posters/right_to_left_ep2_sausage_head.jpg"}, {"id": "right_to_left_ep3_box", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep3_box", "seed": 7, "asset": "Box (google_scan-box_0928)", "frames": 529, "duration_s": 17.6, "fps": 30, "final_xyz": [-0.371, -0.156, 0.789], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep3_box_head_cam.mp4", "left_wrist": "videos/right_to_left/ep3_box_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep3_box_right_wrist.mp4"}, "poster": "posters/right_to_left_ep3_box_head.jpg"}, {"id": "right_to_left_ep4_toy_car", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep4_toy_car", "seed": 9, "asset": "Toy Car (google_scan-toy_car_0858)", "frames": 1094, "duration_s": 36.5, "fps": 30, "final_xyz": [-0.304, -0.161, 0.812], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep4_toy_car_head_cam.mp4", "left_wrist": "videos/right_to_left/ep4_toy_car_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep4_toy_car_right_wrist.mp4"}, "poster": "posters/right_to_left_ep4_toy_car_head.jpg"}, {"id": "pick_left_place_right_ep0_toy_train", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep0_toy_train", "seed": 4, "asset": "Toy Train (omniobject3d-toy_train_066)", "frames": 351, "duration_s": 11.7, "fps": 30, "final_xyz": [0.238, -0.133, 0.78], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep0_toy_train_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep0_toy_train_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep0_toy_train_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep0_toy_train_head.jpg"}, {"id": "pick_left_place_right_ep1_garage_kit", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep1_garage_kit", "seed": 21, "asset": "Garage Kit (omniobject3d-garage_kit_003)", "frames": 368, "duration_s": 12.3, "fps": 30, "final_xyz": [0.334, -0.134, 0.784], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep1_garage_kit_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep1_garage_kit_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep1_garage_kit_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep1_garage_kit_head.jpg"}, {"id": "pick_left_place_right_ep2_box", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep2_box", "seed": 37, "asset": "Box (google_scan-box_0399)", "frames": 331, "duration_s": 11.0, "fps": 30, "final_xyz": [0.375, -0.171, 0.807], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep2_box_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep2_box_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep2_box_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep2_box_head.jpg"}, {"id": "pick_left_place_right_ep3_toy_truck", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep3_toy_truck", "seed": 126, "asset": "Toy Truck (google_scan-toy_truck_0738)", "frames": 326, "duration_s": 10.9, "fps": 30, "final_xyz": [0.305, -0.097, 0.797], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep3_toy_truck_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep3_toy_truck_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep3_toy_truck_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep3_toy_truck_head.jpg"}, {"id": "pick_left_place_right_ep4_candle", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep4_candle", "seed": 203, "asset": "Candle (omniobject3d-candle_004)", "frames": 331, "duration_s": 11.0, "fps": 30, "final_xyz": [0.36, -0.181, 0.789], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep4_candle_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep4_candle_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep4_candle_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep4_candle_head.jpg"}, {"id": "pick_right_place_left_ep0_toy_train", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep0_toy_train", "seed": 4, "asset": "Toy Train (omniobject3d-toy_train_066)", "frames": 326, "duration_s": 10.9, "fps": 30, "final_xyz": [-0.4, -0.088, 0.779], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep0_toy_train_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep0_toy_train_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep0_toy_train_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep0_toy_train_head.jpg"}, {"id": "pick_right_place_left_ep1_box", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep1_box", "seed": 111, "asset": "Box (google_scan-box_0399)", "frames": 339, "duration_s": 11.3, "fps": 30, "final_xyz": [-0.366, -0.177, 0.807], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep1_box_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep1_box_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep1_box_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep1_box_head.jpg"}, {"id": "pick_right_place_left_ep2_pomegranate", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep2_pomegranate", "seed": 116, "asset": "Pomegranate (omniobject3d-pomegranate_020)", "frames": 334, "duration_s": 11.1, "fps": 30, "final_xyz": [-0.36, -0.12, 0.787], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep2_pomegranate_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep2_pomegranate_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep2_pomegranate_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep2_pomegranate_head.jpg"}, {"id": "pick_right_place_left_ep3_hot_dog", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep3_hot_dog", "seed": 130, "asset": "Hot Dog (omniobject3d-hot_dog_081)", "frames": 375, "duration_s": 12.5, "fps": 30, "final_xyz": [-0.348, -0.276, 0.791], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep3_hot_dog_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep3_hot_dog_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep3_hot_dog_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep3_hot_dog_head.jpg"}, {"id": "pick_right_place_left_ep4_facial_cream", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep4_facial_cream", "seed": 233, "asset": "Facial Cream (omniobject3d-facial_cream_021)", "frames": 327, "duration_s": 10.9, "fps": 30, "final_xyz": [-0.362, -0.189, 0.796], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep4_facial_cream_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep4_facial_cream_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep4_facial_cream_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep4_facial_cream_head.jpg"}
+    ];
     episodes = INLINE_EPISODES;
-    renderEpisodes();
+    const counts = new Map();
+    for (const episode of episodes) {
+      counts.set(episode.task, (counts.get(episode.task) ?? 0) + 1);
+    }
+    document.getElementById("task-count").textContent = counts.size;
+    document.getElementById("episode-count").textContent = episodes.length;
+    document.getElementById("frame-count").textContent = episodes
+      .reduce((total, episode) => total + episode.frames, 0).toLocaleString("en-US");
+    filterButtons.forEach(button => {
+      const filter = button.dataset.filter;
+      button.textContent += ` (${filter === "all" ? episodes.length : (counts.get(filter) ?? 0)})`;
+      button.addEventListener("click", () => selectFilter(filter));
+    });
+    selectFilter(new URLSearchParams(window.location.search).get("task"));
   </script>
 </body>
 </html>

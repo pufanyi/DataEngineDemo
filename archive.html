@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataEngineDemo | Dual-X5 Tabletop Manipulation</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #121826;
+      --surface-2: #192235;
+      --border: #26324d;
+      --text: #e6edf7;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 600px at 50% -120px, rgba(56, 189, 248, 0.14), transparent 70%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+    header.hero {
+      text-align: center;
+      padding: 28px 0 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 4px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--accent);
+    }
+    .badge.purple { color: var(--accent-2); }
+    .badge.green { color: var(--green); }
+    h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #f8fafc, #7dd3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      max-width: 780px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      text-align: left;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-value { font-size: 24px; font-weight: 700; margin-top: 4px; color: var(--text); }
+    .stat-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    section { margin-top: 40px; }
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .benchmark-note { color: var(--muted); font-size: 14px; }
+    .benchmark-overflow { overflow-x: auto; margin: 12px 0; }
+    .benchmark-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .benchmark-table th, .benchmark-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .benchmark-table thead { color: var(--muted); }
+    .benchmark-table tbody th { font-weight: 600; }
+
+    .grasp-geometry-figure { margin: 16px 0 0; max-width: 680px; }
+    .grasp-geometry-figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+    .grasp-geometry-figure figcaption { margin-top: 8px; }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+    }
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tag-l2r { color: var(--accent); font-size: 12px; font-weight: 600; background: rgba(56,189,248,0.12); padding: 3px 9px; border-radius: 999px; }
+    .tag-r2l { color: var(--accent-2); font-size: 12px; font-weight: 600; background: rgba(167,139,250,0.14); padding: 3px 9px; border-radius: 999px; }
+    .tag-p2r { color: var(--green); font-size: 12px; font-weight: 600; background: rgba(52,211,153,0.14); padding: 3px 9px; border-radius: 999px; }
+    .tag-p2l { color: var(--amber); font-size: 12px; font-weight: 600; background: rgba(251,191,36,0.14); padding: 3px 9px; border-radius: 999px; }
+    .tag-swap { color: #f0abfc; font-size: 12px; font-weight: 600; background: rgba(240,171,252,0.14); padding: 3px 9px; border-radius: 999px; }
+    .tag-press { color: #5eead4; font-size: 12px; font-weight: 600; background: rgba(94,234,212,0.14); padding: 3px 9px; border-radius: 999px; }
+    .spec-list { list-style: none; font-size: 14px; color: var(--muted); }
+    .spec-list li { padding: 5px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); }
+    .spec-list li:last-child { border-bottom: none; }
+    .spec-list strong { color: var(--text); font-weight: 600; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px;
+      background: var(--surface-2);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #cbd5e1;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .tabs, .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    button.btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    button.btn:hover { border-color: var(--accent); color: var(--accent); }
+    button.btn.active {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .speed-label { font-size: 13px; color: var(--muted); margin-right: 4px; }
+
+    .episode-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .ep-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .ep-header {
+      padding: 14px 20px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .ep-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15.5px;
+    }
+    .ep-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .pill-ok {
+      color: var(--green);
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .ep-videos {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      padding: 16px 20px;
+      align-items: stretch;
+    }
+    @media (max-width: 820px) {
+      .ep-videos { grid-template-columns: 1fr; }
+    }
+    .video-box {
+      position: relative;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .video-box video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      background: #000;
+    }
+    .video-label {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(11, 15, 25, 0.78);
+      backdrop-filter: blur(4px);
+      color: #f1f5f9;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+    .wrist-stack {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+    }
+    .ep-footer {
+      padding: 10px 20px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .ep-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-sm {
+      padding: 5px 11px;
+      font-size: 12.5px;
+      border-radius: 8px;
+    }
+    pre.schema-box {
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      overflow-x: auto;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+    footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div style="text-align:center;padding:12px;background:#203e33;color:#eef7e7"><a href="./" style="color:inherit">← X5 Task Atlas</a></div>
+  <div class="container">
+    <header class="hero">
+      <div class="badge-row">
+        <span class="badge">Isaac Sim 6.2 · PhysX</span>
+        <span class="badge purple">Dual ARX X5</span>
+        <span class="badge green">LeRobot v3.0 · cosmos-action/0.1.10</span>
+      </div>
+      <h1>Dual-X5 Tabletop Manipulation</h1>
+      <p class="subtitle">
+        Physics-validated InternDataEngine demonstrations for pushing, pick-and-place, object swapping,
+        and pressing a button selected by color.
+      </p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Task Presets</div>
+          <div class="stat-value" id="task-count"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Accepted Episodes</div>
+          <div class="stat-value" id="episode-count"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Frames</div>
+          <div class="stat-value" id="frame-count"></div>
+          <div class="stat-sub">30 fps</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Synchronized Views</div>
+          <div class="stat-value">3</div>
+          <div class="stat-sub">Head and both wrists</div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Task Design &amp; Randomization Overview</h2>
+      <div class="overview-grid">
+        <div class="card">
+          <h3>Swap Objects <span class="tag-swap">2 Episodes · L40S</span></h3>
+          <ul class="spec-list">
+            <li>In the dual-arm recordings, the arms take turns staging both objects for handoff and finishing the exchange.</li>
+            <li>The objects start at sampled tabletop poses. Acceptance checks both measured starting spots and stability after release.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Press Button <span class="tag-press">4 Episodes · L40S</span></h3>
+          <ul class="spec-list">
+            <li>The randomized recordings vary the target color, button order and XY poses.</li>
+            <li>The selected cap must travel at least 12 mm and spring back, with at most 3 mm of movement at each other cap.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Push Left → Right <span class="tag-l2r">5 Episodes · RTX 5090</span></h3>
+          <ul class="spec-list">
+            <li><strong>Spawn Region (Left):</strong> <code>X ∈ [-0.47, 0.00]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
+            <li><strong>Bimanual Handoff:</strong> <code>x5_left</code> pushes to <code>X = +0.08</code> → Home → <code>x5_right</code> pushes to <code>X = +0.36</code> → Home</li>
+            <li><strong>Goal Region (Right):</strong> <code>X ∈ [0.23, 0.51]</code>, <code>Y ∈ [-0.33, -0.03]</code>, <code>released</code> + <code>stable (0.5s)</code></li>
+            <li><strong>Instruction:</strong> <em>"Push the {target_object} on the left to the right of the table"</em></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Push Right → Left <span class="tag-r2l">5 Episodes · L40S</span></h3>
+          <ul class="spec-list">
+            <li><strong>Spawn Region (Right):</strong> <code>X ∈ [0.00, 0.47]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
+            <li><strong>Bimanual Handoff:</strong> <code>x5_right</code> pushes to <code>X = -0.08</code> → Home → <code>x5_left</code> pushes to <code>X = -0.36</code> → Home</li>
+            <li><strong>Goal Region (Left):</strong> <code>X ∈ [-0.51, -0.23]</code>, <code>Y ∈ [-0.33, -0.03]</code>, <code>released</code> + <code>stable (0.5s)</code></li>
+            <li><strong>Instruction:</strong> <em>"Push the {target_object} on the right to the left of the table"</em></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Pick &amp; Place Left → Right <span class="tag-p2r">10 Episodes · RTX 5090 / L40S</span></h3>
+          <ul class="spec-list">
+            <li><strong>Spawn Region (Left):</strong> <code>X ∈ [-0.47, 0.00]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
+            <li><strong>Bimanual Handoff:</strong> <code>x5_left</code> picks &amp; places at <code>X = +0.08</code> → Home → <code>x5_right</code> picks &amp; places at <code>X = +0.36</code></li>
+            <li><strong>Goal Region (Right):</strong> <code>X ∈ [0.23, 0.51]</code>, <code>Y ∈ [-0.33, -0.03]</code>, <code>released</code> + <code>stable (0.5s)</code></li>
+            <li><strong>Instruction:</strong> <em>"Pick up the {target_object} and place it on the right of the table"</em></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Pick &amp; Place Right → Left <span class="tag-p2l">9 Episodes · RTX 5090 / L40S</span></h3>
+          <ul class="spec-list">
+            <li><strong>Spawn Region (Right):</strong> <code>X ∈ [0.00, 0.47]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
+            <li><strong>Bimanual Handoff:</strong> <code>x5_right</code> picks &amp; places at <code>X = -0.08</code> → Home → <code>x5_left</code> picks &amp; places at <code>X = -0.36</code></li>
+            <li><strong>Goal Region (Left):</strong> <code>X ∈ [-0.51, -0.23]</code>, <code>Y ∈ [-0.33, -0.03]</code>, <code>released</code> + <code>stable (0.5s)</code></li>
+            <li><strong>Instruction:</strong> <em>"Pick up the {target_object} and place it on the left of the table"</em></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Push Skill &amp; 6-Layer Randomization</h3>
+          <ul class="spec-list">
+            <li><strong>Wide-Scoop Pusher:</strong> Open 8.8 cm gripper aligned perpendicular to push direction, tilted 25°–70° for 6-DOF X5 reachability, lower-finger tabletop clearance, and up to 4 closed-loop corrective replans.</li>
+            <li><strong>Domain Randomization:</strong> Locked <code>annotated_objects</code> pool, 5 convex-hull clutter distractors (with reserved push corridor), independent table/wall/floor MDL materials, 14 room lighting presets, and 6-pose head camera jitter (±0.10 m).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="regrasp-benchmark">
+      <h2>RTX 5090 Pick &amp; Place Regrasp Benchmark</h2>
+      <div class="card">
+        <p class="benchmark-note">November 25, 2026 · RTX 5090. Each direction used the same 16 seeds with and without the regrasp change. Success required the object to reach the goal region, be released, and stay stable for 0.5 seconds.</p>
+        <div class="benchmark-overflow">
+          <table class="benchmark-table">
+            <thead><tr>
+              <th scope="col">Direction</th>
+              <th scope="col">Baseline</th>
+              <th scope="col">With regrasp</th>
+              <th scope="col">Recovered</th>
+              <th scope="col">Regressed</th>
+              <th scope="col">Median attempt time<br>Baseline / regrasp</th>
+            </tr></thead>
+            <tbody>
+            <tr>
+              <th scope="row">Left → Right</th>
+              <td>1/16 (6.25%)</td>
+              <td>3/16 (18.75%)</td>
+              <td>2</td>
+              <td>0</td>
+              <td>3.4 / 4.2 min</td>
+            </tr>
+            <tr>
+              <th scope="row">Right → Left</th>
+              <td>1/16 (6.25%)</td>
+              <td>1/16 (6.25%)</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5.0 / 5.5 min</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="benchmark-note">Recovered seeds passed in the regrasp configuration and failed at baseline. Regressed seeds did the reverse. Of the two recovered left-to-right seeds, the dinosaur used two grasp retries and the toy train used zero. Median attempt time includes scene setup, planning, and rollout.</p>
+      </div>
+    </section>
+
+    <section id="grasp-geometry-benchmark">
+      <h2>RTX 5090 Pick &amp; Place Grasp Geometry Benchmark</h2>
+      <div class="card">
+        <p class="benchmark-note">64 attempts across both directions on one 8-GPU RTX 5090 node. Each direction used the same 16 seeds per configuration. Both configurations allowed two grasp retries per Pick. Geometry ordering breaks annotation-score ties by checking surface support around the gripper’s tool center point.</p>
+        <div class="benchmark-overflow">
+          <table class="benchmark-table">
+            <thead><tr>
+              <th scope="col">Direction</th>
+              <th scope="col">Annotation order</th>
+              <th scope="col">Geometry order</th>
+              <th scope="col">Passed without a retry<br>Annotation / geometry</th>
+              <th scope="col">Mean grasp retries<br>Annotation / geometry</th>
+              <th scope="col">Recovered / regressed</th>
+              <th scope="col">Median attempt time<br>Annotation / geometry</th>
+            </tr></thead>
+            <tbody>
+            <tr>
+              <th scope="row">Left → Right</th>
+              <td>3/16 (18.75%)</td>
+              <td>2/16 (12.50%)</td>
+              <td>3/16 / 1/16</td>
+              <td>0.25 / 0.31</td>
+              <td>1 / 2</td>
+              <td>7.9 / 6.5 min</td>
+            </tr>
+            <tr>
+              <th scope="row">Right → Left</th>
+              <td>4/16 (25.00%)</td>
+              <td>5/16 (31.25%)</td>
+              <td>1/16 / 3/16</td>
+              <td>0.50 / 0.44</td>
+              <td>3 / 2</td>
+              <td>9.3 / 7.0 min</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="benchmark-note">A pass requires placement in the goal region, release, and 0.5 seconds of stability. Recovered seeds passed only with geometry ordering. Regressed seeds passed only with annotation ordering. Attempt time includes scene setup, planning, and execution. The batch took 46.9 minutes through video encoding. <a href="benchmarks/dual_x5_grasp_geometry_5090.json">Per-seed results</a>.</p>
+        <figure class="grasp-geometry-figure">
+          <img src="benchmarks/dual_x5_dinosaur_tcp.png" alt="Dinosaur mesh in asset coordinates with the two planned receiving-arm tool center points marked">
+          <figcaption class="benchmark-note">In a separate L40S seed 0 pair, annotation order selected the right-arm TCP at #79 near the tail base. Geometry order selected #208 closer to the body. Both attempts passed. The plot shows the asset-frame TCP projection.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2>Synchronized 3-View Episode Gallery</h2>
+      <div class="toolbar">
+        <div class="tabs" id="filter-tabs">
+          <button class="btn active" data-filter="all">All Episodes</button>
+          <button class="btn" data-filter="swap_objects">Swap Objects</button>
+          <button class="btn" data-filter="press_button">Press Button</button>
+          <button class="btn" data-filter="left_to_right">Push L → R</button>
+          <button class="btn" data-filter="right_to_left">Push R → L</button>
+          <button class="btn" data-filter="pick_left_place_right">Pick &amp; Place L → R</button>
+          <button class="btn" data-filter="pick_right_place_left">Pick &amp; Place R → L</button>
+        </div>
+        <div class="controls">
+          <span class="speed-label">Playback Speed:</span>
+          <button class="btn speed-btn" data-rate="1">1×</button>
+          <button class="btn speed-btn active" data-rate="2">2×</button>
+          <button class="btn speed-btn" data-rate="4">4×</button>
+        </div>
+      </div>
+      <div class="episode-list" id="episode-list"></div>
+    </section>
+
+    <section>
+      <h2>Unified LeRobot v3.0 Data Contract</h2>
+      <div class="card">
+        <pre class="schema-box">dataset/
+├── data/chunk-000/file-000.parquet        # 25 columns: observation.state float32[27], action float32[20], valid masks, pts_ns
+├── meta/
+│   ├── info.json                          # codebase_version="v3.0", state_profile="head_relative_wrists27", cosmos-action/0.1.10
+│   ├── modality.json                      # left/right wrist pose in head optical frame + 20D bimanual delta action slices
+│   ├── tasks.parquet                      # (task_index, task) language instructions
+│   └── episodes/chunk-000/file-000.parquet # per-episode metadata + full min/max/mean/std/quantiles stats
+└── videos/
+    ├── observation.images.head_cam/chunk-000/file-000.mp4     # Stored as AV1 (yuv420p) in dataset; H.264 here for web playback
+    ├── observation.images.left_wrist/chunk-000/file-000.mp4
+    └── observation.images.right_wrist/chunk-000/file-000.mp4</pre>
+      </div>
+    </section>
+
+    <footer>
+      Generated with InternDataEngine · Ready to host directly under <code>pufanyi.github.io/DataEngineDemo</code>
+    </footer>
+  </div>
+
+  <script>
+    let currentFilter = "all";
+    let playbackRate = 2;
+    let episodes = [];
+
+    function renderEpisodes() {
+      const container = document.getElementById("episode-list");
+      container.innerHTML = "";
+      const filtered = episodes.filter(e => currentFilter === "all" || e.task === currentFilter);
+
+      filtered.forEach((ep, idx) => {
+        const card = document.createElement("article");
+        card.className = "ep-card";
+        const tagMap = {
+          left_to_right: "tag-l2r", right_to_left: "tag-r2l",
+          pick_left_place_right: "tag-p2r", pick_right_place_left: "tag-p2l",
+          swap_objects: "tag-swap", press_button: "tag-press"
+        };
+        const tagClass = tagMap[ep.task] || "tag-l2r";
+        const measurements = ep.metrics ?? [{ label: "Final XYZ", value: `[${ep.final_xyz.join(", ")}]` }];
+        card.innerHTML = `
+          <div class="ep-header">
+            <div class="ep-title">
+              <span class="${tagClass}">${ep.task_label}</span>
+              <span>#${idx + 1} · ${ep.asset}</span>
+            </div>
+            <div class="ep-meta">
+              <span>Seed <code>${ep.seed}</code></span>
+              <span><code>${ep.frames}</code> frames (${ep.duration_s}s @ ${ep.fps}fps)</span>
+              ${measurements.map(metric => `<span>${metric.label} <code>${metric.value}</code></span>`).join("")}
+              <span class="pill-ok">✓ Accepted</span>
+            </div>
+          </div>
+          <div class="ep-videos">
+            <div class="video-box">
+              <span class="video-label">Head Camera</span>
+              <video class="sync-vid head-vid" controls muted loop playsinline preload="metadata" poster="${ep.poster}" src="${ep.videos.head_cam}"></video>
+            </div>
+            <div class="wrist-stack">
+              <div class="video-box">
+                <span class="video-label">Left Wrist</span>
+                <video class="sync-vid" muted loop playsinline preload="metadata" src="${ep.videos.left_wrist}"></video>
+              </div>
+              <div class="video-box">
+                <span class="video-label">Right Wrist</span>
+                <video class="sync-vid" muted loop playsinline preload="metadata" src="${ep.videos.right_wrist}"></video>
+              </div>
+            </div>
+          </div>
+          <div class="ep-footer">
+            <span><strong>Instruction:</strong> ${ep.instruction}</span>
+            <div class="ep-actions">
+              <button class="btn btn-sm play-all-btn">▶ Play Sync</button>
+              <button class="btn btn-sm reset-btn">↺ Restart</button>
+            </div>
+          </div>
+        `;
+
+        const vids = Array.from(card.querySelectorAll("video.sync-vid"));
+        const head = card.querySelector("video.head-vid");
+        const playBtn = card.querySelector(".play-all-btn");
+        const resetBtn = card.querySelector(".reset-btn");
+
+        vids.forEach(v => { v.playbackRate = playbackRate; });
+
+        function syncPlay() {
+          const playing = !head.paused;
+          if (playing) {
+            vids.forEach(v => v.pause());
+            playBtn.textContent = "▶ Play Sync";
+          } else {
+            const t = head.currentTime;
+            vids.forEach(v => {
+              v.playbackRate = playbackRate;
+              if (Math.abs(v.currentTime - t) > 0.15) v.currentTime = t;
+              v.play().catch(() => {});
+            });
+            playBtn.textContent = "⏸ Pause";
+          }
+        }
+
+        playBtn.addEventListener("click", syncPlay);
+        resetBtn.addEventListener("click", () => {
+          vids.forEach(v => {
+            v.currentTime = 0;
+            v.playbackRate = playbackRate;
+            v.play().catch(() => {});
+          });
+          playBtn.textContent = "⏸ Pause";
+        });
+
+        head.addEventListener("play", () => {
+          vids.forEach(v => {
+            v.playbackRate = playbackRate;
+            if (v !== head) {
+              if (Math.abs(v.currentTime - head.currentTime) > 0.15) v.currentTime = head.currentTime;
+              v.play().catch(() => {});
+            }
+          });
+          playBtn.textContent = "⏸ Pause";
+        });
+        head.addEventListener("pause", () => {
+          vids.forEach(v => { if (v !== head) v.pause(); });
+          playBtn.textContent = "▶ Play Sync";
+        });
+        head.addEventListener("seeked", () => {
+          vids.forEach(v => { if (v !== head) v.currentTime = head.currentTime; });
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    const filterButtons = [...document.querySelectorAll("#filter-tabs .btn")];
+
+    function selectFilter(filter) {
+      currentFilter = filterButtons.some(button => button.dataset.filter === filter) ? filter : "all";
+      filterButtons.forEach(button => {
+        const selected = button.dataset.filter === currentFilter;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-pressed", selected);
+      });
+      renderEpisodes();
+    }
+
+    document.querySelectorAll(".speed-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".speed-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        playbackRate = parseFloat(btn.dataset.rate);
+        document.querySelectorAll("video.sync-vid").forEach(v => { v.playbackRate = playbackRate; });
+      });
+    });
+
+    const INLINE_EPISODES = [
+      {"id": "pick_left_place_right_rtx5090_grasp_rank_geometry_seed04", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_grasp_rank_geometry_seed04", "seed": 4, "asset": "Toy train", "frames": 615, "duration_s": 20.5, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "1"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#79 → #555 → #1077 → #473"}], "instruction": "Pick up the toy train on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_geometry_seed04_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_grasp_rank_control_seed07", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_grasp_rank_control_seed07", "seed": 7, "asset": "Box", "frames": 370, "duration_s": 12.3, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Annotation order"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#17 → #17"}], "instruction": "Pick up the box on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_control_seed07_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_grasp_rank_geometry_seed07", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_grasp_rank_geometry_seed07", "seed": 7, "asset": "Box", "frames": 412, "duration_s": 13.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#1559 → #1559"}], "instruction": "Pick up the box on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_geometry_seed07_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_grasp_rank_geometry_seed00", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_grasp_rank_geometry_seed00", "seed": 0, "asset": "Dinosaur", "frames": 352, "duration_s": 11.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#135 → #135"}], "instruction": "Pick up the dinosaur on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_geometry_seed00_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_grasp_rank_control_seed01", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_grasp_rank_control_seed01", "seed": 1, "asset": "Shoe", "frames": 655, "duration_s": 21.8, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Annotation order"}, {"label": "Grasp retries", "value": "4"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#1578 → #2253 → #523 → #1578 → #2253 → #523"}], "instruction": "Pick up the shoe on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_control_seed01_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_grasp_rank_geometry_seed01", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_grasp_rank_geometry_seed01", "seed": 1, "asset": "Shoe", "frames": 655, "duration_s": 21.8, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "4"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#1578 → #2253 → #523 → #1578 → #2253 → #523"}], "instruction": "Pick up the shoe on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_geometry_seed01_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_regrasp_seed00", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_regrasp_seed00", "seed": 0, "asset": "Dinosaur", "frames": 502, "duration_s": 16.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "2"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the dinosaur on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed00_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed00_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_regrasp_seed04", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_regrasp_seed04", "seed": 4, "asset": "Toy train", "frames": 480, "duration_s": 16.0, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the toy train on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed04_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed04_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_regrasp_seed04", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_regrasp_seed04", "seed": 4, "asset": "Toy train", "frames": 329, "duration_s": 11.0, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the toy train on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_regrasp_seed04_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_regrasp_seed04_head.jpg"},
+      {"id": "swap_objects_randomized_seed17", "task": "swap_objects", "task_label": "Dual-Arm Swap", "slug": "randomized_seed17", "seed": 17, "asset": "Facial cream and pomegranate", "frames": 702, "duration_s": 23.4, "fps": 30, "metrics": [{"label": "Swap XY error", "value": "2.7 / 15.4 mm"}, {"label": "Left / right wrist travel", "value": "2.11 / 2.24 m"}, {"label": "Lighting", "value": "Red"}], "instruction": "Swap the facial cream with the pomegranate", "videos": {"head_cam": "videos/swap_objects/randomized_seed17_head_cam.mp4", "left_wrist": "videos/swap_objects/randomized_seed17_left_wrist.mp4", "right_wrist": "videos/swap_objects/randomized_seed17_right_wrist.mp4"}, "poster": "posters/swap_objects_randomized_seed17_head.jpg"},
+      {"id": "press_button_randomized_seed0", "task": "press_button", "task_label": "Randomized Button Press", "slug": "randomized_seed0", "seed": 0, "asset": "Red button", "frames": 117, "duration_s": 3.9, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}, {"label": "Lighting", "value": "Deep blue"}], "instruction": "Press the red button", "videos": {"head_cam": "videos/press_button/randomized_seed0_head_cam.mp4", "left_wrist": "videos/press_button/randomized_seed0_left_wrist.mp4", "right_wrist": "videos/press_button/randomized_seed0_right_wrist.mp4"}, "poster": "posters/press_button_randomized_seed0_head.jpg"},
+      {"id": "press_button_randomized_seed6", "task": "press_button", "task_label": "Randomized Button Press", "slug": "randomized_seed6", "seed": 6, "asset": "Blue button", "frames": 114, "duration_s": 3.8, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}, {"label": "Lighting", "value": "Green"}], "instruction": "Press the blue button", "videos": {"head_cam": "videos/press_button/randomized_seed6_head_cam.mp4", "left_wrist": "videos/press_button/randomized_seed6_left_wrist.mp4", "right_wrist": "videos/press_button/randomized_seed6_right_wrist.mp4"}, "poster": "posters/press_button_randomized_seed6_head.jpg"},
+      {"id": "swap_objects_pomegranate_box", "task": "swap_objects", "task_label": "Single-Arm Swap", "slug": "pomegranate_box", "seed": 1, "asset": "Pomegranate and box", "frames": 482, "duration_s": 16.1, "fps": 30, "metrics": [{"label": "Swap XY error", "value": "5.0 / 5.3 mm"}, {"label": "Stable window", "value": "0.50 s"}], "instruction": "Swap the pomegranate with the box", "videos": {"head_cam": "videos/swap_objects/pomegranate_box_head_cam.mp4", "left_wrist": "videos/swap_objects/pomegranate_box_left_wrist.mp4", "right_wrist": "videos/swap_objects/pomegranate_box_right_wrist.mp4"}, "poster": "posters/swap_objects_pomegranate_box_head.jpg"},
+      {"id": "press_button_red", "task": "press_button", "task_label": "Fixed-Layout Button Press", "slug": "red", "seed": 0, "asset": "Red button", "frames": 114, "duration_s": 3.8, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}], "instruction": "Press the red button", "videos": {"head_cam": "videos/press_button/red_head_cam.mp4", "left_wrist": "videos/press_button/red_left_wrist.mp4", "right_wrist": "videos/press_button/red_right_wrist.mp4"}, "poster": "posters/press_button_red_head.jpg"},
+      {"id": "press_button_blue", "task": "press_button", "task_label": "Fixed-Layout Button Press", "slug": "blue", "seed": 0, "asset": "Blue button", "frames": 114, "duration_s": 3.8, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}], "instruction": "Press the blue button", "videos": {"head_cam": "videos/press_button/blue_head_cam.mp4", "left_wrist": "videos/press_button/blue_left_wrist.mp4", "right_wrist": "videos/press_button/blue_right_wrist.mp4"}, "poster": "posters/press_button_blue_head.jpg"},
+      {"id": "left_to_right_ep0_dinosaur", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep0_dinosaur", "seed": 0, "asset": "Dinosaur (omniobject3d-dinosaur_008)", "frames": 1068, "duration_s": 35.6, "fps": 30, "final_xyz": [0.389, -0.152, 0.804], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep0_dinosaur_head_cam.mp4", "left_wrist": "videos/left_to_right/ep0_dinosaur_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep0_dinosaur_right_wrist.mp4"}, "poster": "posters/left_to_right_ep0_dinosaur_head.jpg"},
+      {"id": "left_to_right_ep1_shoe", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep1_shoe", "seed": 1, "asset": "Shoe (google_scan-shoe_0964)", "frames": 688, "duration_s": 22.9, "fps": 30, "final_xyz": [0.314, -0.175, 0.809], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep1_shoe_head_cam.mp4", "left_wrist": "videos/left_to_right/ep1_shoe_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep1_shoe_right_wrist.mp4"}, "poster": "posters/left_to_right_ep1_shoe_head.jpg"},
+      {"id": "left_to_right_ep2_teanet", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep2_teanet", "seed": 6, "asset": "Tea Strainer (robotwin-053_teanet-6)", "frames": 1088, "duration_s": 36.3, "fps": 30, "final_xyz": [0.387, -0.201, 0.772], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep2_teanet_head_cam.mp4", "left_wrist": "videos/left_to_right/ep2_teanet_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep2_teanet_right_wrist.mp4"}, "poster": "posters/left_to_right_ep2_teanet_head.jpg"},
+      {"id": "left_to_right_ep3_box", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep3_box", "seed": 7, "asset": "Box (google_scan-box_0928)", "frames": 367, "duration_s": 12.2, "fps": 30, "final_xyz": [0.383, -0.175, 0.788], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep3_box_head_cam.mp4", "left_wrist": "videos/left_to_right/ep3_box_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep3_box_right_wrist.mp4"}, "poster": "posters/left_to_right_ep3_box_head.jpg"},
+      {"id": "left_to_right_ep4_toy_car", "task": "left_to_right", "task_label": "Push Left → Right", "slug": "ep4_toy_car", "seed": 9, "asset": "Toy Car (google_scan-toy_car_0858)", "frames": 723, "duration_s": 24.1, "fps": 30, "final_xyz": [0.31, -0.171, 0.812], "instruction": "Push the target object on the left to the right of the table", "videos": {"head_cam": "videos/left_to_right/ep4_toy_car_head_cam.mp4", "left_wrist": "videos/left_to_right/ep4_toy_car_left_wrist.mp4", "right_wrist": "videos/left_to_right/ep4_toy_car_right_wrist.mp4"}, "poster": "posters/left_to_right_ep4_toy_car_head.jpg"},
+      {"id": "right_to_left_ep0_shoe", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep0_shoe", "seed": 1, "asset": "Shoe (google_scan-shoe_0964)", "frames": 1178, "duration_s": 39.3, "fps": 30, "final_xyz": [-0.266, -0.218, 0.809], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep0_shoe_head_cam.mp4", "left_wrist": "videos/right_to_left/ep0_shoe_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep0_shoe_right_wrist.mp4"}, "poster": "posters/right_to_left_ep0_shoe_head.jpg"},
+      {"id": "right_to_left_ep1_dinosaur", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep1_dinosaur", "seed": 0, "asset": "Dinosaur (omniobject3d-dinosaur_008)", "frames": 918, "duration_s": 30.6, "fps": 30, "final_xyz": [-0.342, -0.147, 0.809], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep1_dinosaur_head_cam.mp4", "left_wrist": "videos/right_to_left/ep1_dinosaur_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep1_dinosaur_right_wrist.mp4"}, "poster": "posters/right_to_left_ep1_dinosaur_head.jpg"},
+      {"id": "right_to_left_ep2_sausage", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep2_sausage", "seed": 5, "asset": "Sausage (omniobject3d-sausage_029)", "frames": 1098, "duration_s": 36.6, "fps": 30, "final_xyz": [-0.35, -0.185, 0.777], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep2_sausage_head_cam.mp4", "left_wrist": "videos/right_to_left/ep2_sausage_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep2_sausage_right_wrist.mp4"}, "poster": "posters/right_to_left_ep2_sausage_head.jpg"},
+      {"id": "right_to_left_ep3_box", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep3_box", "seed": 7, "asset": "Box (google_scan-box_0928)", "frames": 529, "duration_s": 17.6, "fps": 30, "final_xyz": [-0.371, -0.156, 0.789], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep3_box_head_cam.mp4", "left_wrist": "videos/right_to_left/ep3_box_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep3_box_right_wrist.mp4"}, "poster": "posters/right_to_left_ep3_box_head.jpg"},
+      {"id": "right_to_left_ep4_toy_car", "task": "right_to_left", "task_label": "Push Right → Left", "slug": "ep4_toy_car", "seed": 9, "asset": "Toy Car (google_scan-toy_car_0858)", "frames": 1094, "duration_s": 36.5, "fps": 30, "final_xyz": [-0.304, -0.161, 0.812], "instruction": "Push the target object on the right to the left of the table", "videos": {"head_cam": "videos/right_to_left/ep4_toy_car_head_cam.mp4", "left_wrist": "videos/right_to_left/ep4_toy_car_left_wrist.mp4", "right_wrist": "videos/right_to_left/ep4_toy_car_right_wrist.mp4"}, "poster": "posters/right_to_left_ep4_toy_car_head.jpg"},
+      {"id": "pick_left_place_right_ep0_toy_train", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep0_toy_train", "seed": 4, "asset": "Toy Train (omniobject3d-toy_train_066)", "frames": 351, "duration_s": 11.7, "fps": 30, "final_xyz": [0.238, -0.133, 0.78], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep0_toy_train_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep0_toy_train_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep0_toy_train_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep0_toy_train_head.jpg"},
+      {"id": "pick_left_place_right_ep1_garage_kit", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep1_garage_kit", "seed": 21, "asset": "Garage Kit (omniobject3d-garage_kit_003)", "frames": 368, "duration_s": 12.3, "fps": 30, "final_xyz": [0.334, -0.134, 0.784], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep1_garage_kit_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep1_garage_kit_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep1_garage_kit_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep1_garage_kit_head.jpg"},
+      {"id": "pick_left_place_right_ep2_box", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep2_box", "seed": 37, "asset": "Box (google_scan-box_0399)", "frames": 331, "duration_s": 11.0, "fps": 30, "final_xyz": [0.375, -0.171, 0.807], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep2_box_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep2_box_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep2_box_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep2_box_head.jpg"},
+      {"id": "pick_left_place_right_ep3_toy_truck", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep3_toy_truck", "seed": 126, "asset": "Toy Truck (google_scan-toy_truck_0738)", "frames": 326, "duration_s": 10.9, "fps": 30, "final_xyz": [0.305, -0.097, 0.797], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep3_toy_truck_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep3_toy_truck_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep3_toy_truck_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep3_toy_truck_head.jpg"},
+      {"id": "pick_left_place_right_ep4_candle", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "ep4_candle", "seed": 203, "asset": "Candle (omniobject3d-candle_004)", "frames": 331, "duration_s": 11.0, "fps": 30, "final_xyz": [0.36, -0.181, 0.789], "instruction": "Pick up the target object and place it on the right of the table", "videos": {"head_cam": "videos/pick_left_place_right/ep4_candle_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/ep4_candle_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/ep4_candle_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_ep4_candle_head.jpg"},
+      {"id": "pick_right_place_left_ep0_toy_train", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep0_toy_train", "seed": 4, "asset": "Toy Train (omniobject3d-toy_train_066)", "frames": 326, "duration_s": 10.9, "fps": 30, "final_xyz": [-0.4, -0.088, 0.779], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep0_toy_train_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep0_toy_train_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep0_toy_train_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep0_toy_train_head.jpg"},
+      {"id": "pick_right_place_left_ep1_box", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep1_box", "seed": 111, "asset": "Box (google_scan-box_0399)", "frames": 339, "duration_s": 11.3, "fps": 30, "final_xyz": [-0.366, -0.177, 0.807], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep1_box_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep1_box_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep1_box_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep1_box_head.jpg"},
+      {"id": "pick_right_place_left_ep2_pomegranate", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep2_pomegranate", "seed": 116, "asset": "Pomegranate (omniobject3d-pomegranate_020)", "frames": 334, "duration_s": 11.1, "fps": 30, "final_xyz": [-0.36, -0.12, 0.787], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep2_pomegranate_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep2_pomegranate_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep2_pomegranate_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep2_pomegranate_head.jpg"},
+      {"id": "pick_right_place_left_ep3_hot_dog", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep3_hot_dog", "seed": 130, "asset": "Hot Dog (omniobject3d-hot_dog_081)", "frames": 375, "duration_s": 12.5, "fps": 30, "final_xyz": [-0.348, -0.276, 0.791], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep3_hot_dog_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep3_hot_dog_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep3_hot_dog_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep3_hot_dog_head.jpg"},
+      {"id": "pick_right_place_left_ep4_facial_cream", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "ep4_facial_cream", "seed": 233, "asset": "Facial Cream (omniobject3d-facial_cream_021)", "frames": 327, "duration_s": 10.9, "fps": 30, "final_xyz": [-0.362, -0.189, 0.796], "instruction": "Pick up the target object and place it on the left of the table", "videos": {"head_cam": "videos/pick_right_place_left/ep4_facial_cream_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/ep4_facial_cream_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/ep4_facial_cream_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_ep4_facial_cream_head.jpg"}
+    ];
+    episodes = INLINE_EPISODES;
+    const counts = new Map();
+    for (const episode of episodes) {
+      counts.set(episode.task, (counts.get(episode.task) ?? 0) + 1);
+    }
+    document.getElementById("task-count").textContent = counts.size;
+    document.getElementById("episode-count").textContent = episodes.length;
+    document.getElementById("frame-count").textContent = episodes
+      .reduce((total, episode) => total + episode.frames, 0).toLocaleString("en-US");
+    filterButtons.forEach(button => {
+      const filter = button.dataset.filter;
+      button.textContent += ` (${filter === "all" ? episodes.length : (counts.get(filter) ?? 0)})`;
+      button.addEventListener("click", () => selectFilter(filter));
+    });
+    selectFilter(new URLSearchParams(window.location.search).get("task"));
+  </script>
+</body>
+</html>

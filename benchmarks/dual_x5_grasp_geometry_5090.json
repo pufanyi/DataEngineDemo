@@ -1,0 +1,1140 @@
+{
+  "gpu": "GeForce RTX 5090",
+  "gpu_count": 8,
+  "engine_commit": "e8bdf5f000a3b18ba6640faa3c7054ea0dcae96e",
+  "attempt_count": 64,
+  "batch_wall_seconds": [
+    2812.0
+  ],
+  "directions": {
+    "pick_left_place_right": {
+      "recovered_seeds": [
+        4
+      ],
+      "regressed_seeds": [
+        0,
+        2
+      ],
+      "control": {
+        "passed": 3,
+        "trials": 16,
+        "success_without_retry": 3,
+        "mean_grasp_retries": 0.25,
+        "median_attempt_seconds": 471.11,
+        "mean_attempt_seconds": 522.95,
+        "attempts": [
+          {
+            "seed": 0,
+            "asset_label": "dinosaur",
+            "instruction": "Pick up the dinosaur on the left side of the table and place it on the right side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 1178.03,
+            "selected_annotations": [
+              {
+                "annotation": 208,
+                "rotation_variant": true
+              },
+              {
+                "annotation": 20,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 1,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 2,
+            "attempt_wall_seconds": 929.73,
+            "selected_annotations": [
+              {
+                "annotation": 1578,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2168,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2253,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 2,
+            "asset_label": "sweet potato",
+            "instruction": "Pick up the sweet potato on the left side of the table and place it on the right side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 1288.75,
+            "selected_annotations": [
+              {
+                "annotation": 19,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 131,
+                "rotation_variant": true
+              }
+            ]
+          },
+          {
+            "seed": 3,
+            "asset_label": "toy motorcycle",
+            "instruction": "Pick up the toy motorcycle on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 506.51,
+            "selected_annotations": []
+          },
+          {
+            "seed": 4,
+            "asset_label": "toy train",
+            "instruction": "Pick up the toy train on the left side of the table and place it on the right side.",
+            "status": "goal_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 799.06,
+            "selected_annotations": [
+              {
+                "annotation": 11,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 9,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 42,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 5,
+            "asset_label": "sausage",
+            "instruction": "Pick up the sausage on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 194.56,
+            "selected_annotations": []
+          },
+          {
+            "seed": 6,
+            "asset_label": "tea strainer",
+            "instruction": "Pick up the tea strainer on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 190.95,
+            "selected_annotations": []
+          },
+          {
+            "seed": 7,
+            "asset_label": "box",
+            "instruction": "Pick up the box on the left side of the table and place it on the right side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 750.87,
+            "selected_annotations": [
+              {
+                "annotation": 17,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 17,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 8,
+            "asset_label": "milk tea",
+            "instruction": "Pick up the milk tea on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 519.26,
+            "selected_annotations": [
+              {
+                "annotation": 1,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 9,
+            "asset_label": "toy car",
+            "instruction": "Pick up the toy car on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 2,
+            "attempt_wall_seconds": 408.81,
+            "selected_annotations": [
+              {
+                "annotation": 69,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 85,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 86,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 10,
+            "asset_label": "hot dog",
+            "instruction": "Pick up the hot dog on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 180.18,
+            "selected_annotations": []
+          },
+          {
+            "seed": 11,
+            "asset_label": "garage kit",
+            "instruction": "Pick up the garage kit on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 519.25,
+            "selected_annotations": [
+              {
+                "annotation": 2406,
+                "rotation_variant": true
+              },
+              {
+                "annotation": 9,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 12,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 435.7,
+            "selected_annotations": [
+              {
+                "annotation": 372,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 13,
+            "asset_label": "bread",
+            "instruction": "Pick up the bread on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 171.31,
+            "selected_annotations": []
+          },
+          {
+            "seed": 14,
+            "asset_label": "shrimp",
+            "instruction": "Pick up the shrimp on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 151.58,
+            "selected_annotations": []
+          },
+          {
+            "seed": 15,
+            "asset_label": null,
+            "instruction": null,
+            "status": "initialization_error",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 142.63,
+            "selected_annotations": []
+          }
+        ]
+      },
+      "geometry": {
+        "passed": 2,
+        "trials": 16,
+        "success_without_retry": 1,
+        "mean_grasp_retries": 0.312,
+        "median_attempt_seconds": 389.91,
+        "mean_attempt_seconds": 508.41,
+        "attempts": [
+          {
+            "seed": 0,
+            "asset_label": "dinosaur",
+            "instruction": "Pick up the dinosaur on the left side of the table and place it on the right side.",
+            "status": "planning_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 970.55,
+            "selected_annotations": [
+              {
+                "annotation": 208,
+                "rotation_variant": true,
+                "geometry_score": 0.73579
+              },
+              {
+                "annotation": 20,
+                "rotation_variant": true,
+                "geometry_score": 0.76477
+              }
+            ]
+          },
+          {
+            "seed": 1,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 2,
+            "attempt_wall_seconds": 971.66,
+            "selected_annotations": [
+              {
+                "annotation": 1578,
+                "rotation_variant": false,
+                "geometry_score": 0.35752
+              },
+              {
+                "annotation": 2253,
+                "rotation_variant": false,
+                "geometry_score": 0.32589
+              },
+              {
+                "annotation": 2168,
+                "rotation_variant": true,
+                "geometry_score": 0.27014
+              }
+            ]
+          },
+          {
+            "seed": 2,
+            "asset_label": "sweet potato",
+            "instruction": "Pick up the sweet potato on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 1060.79,
+            "selected_annotations": [
+              {
+                "annotation": 38,
+                "rotation_variant": false,
+                "geometry_score": 0.87008
+              },
+              {
+                "annotation": 2300,
+                "rotation_variant": false,
+                "geometry_score": 0.65995
+              }
+            ]
+          },
+          {
+            "seed": 3,
+            "asset_label": "toy motorcycle",
+            "instruction": "Pick up the toy motorcycle on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 554.07,
+            "selected_annotations": []
+          },
+          {
+            "seed": 4,
+            "asset_label": "toy train",
+            "instruction": "Pick up the toy train on the left side of the table and place it on the right side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 1,
+            "attempt_wall_seconds": 1204.67,
+            "selected_annotations": [
+              {
+                "annotation": 79,
+                "rotation_variant": false,
+                "geometry_score": 0.80347
+              },
+              {
+                "annotation": 555,
+                "rotation_variant": true,
+                "geometry_score": 0.77451
+              },
+              {
+                "annotation": 1077,
+                "rotation_variant": false,
+                "geometry_score": 0.73083
+              },
+              {
+                "annotation": 473,
+                "rotation_variant": true,
+                "geometry_score": 0.86153
+              }
+            ]
+          },
+          {
+            "seed": 5,
+            "asset_label": "sausage",
+            "instruction": "Pick up the sausage on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 237.88,
+            "selected_annotations": []
+          },
+          {
+            "seed": 6,
+            "asset_label": "tea strainer",
+            "instruction": "Pick up the tea strainer on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 212.51,
+            "selected_annotations": []
+          },
+          {
+            "seed": 7,
+            "asset_label": "box",
+            "instruction": "Pick up the box on the left side of the table and place it on the right side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 722.69,
+            "selected_annotations": [
+              {
+                "annotation": 1559,
+                "rotation_variant": false,
+                "geometry_score": 0.84483
+              },
+              {
+                "annotation": 1559,
+                "rotation_variant": false,
+                "geometry_score": 0.84483
+              }
+            ]
+          },
+          {
+            "seed": 8,
+            "asset_label": "milk tea",
+            "instruction": "Pick up the milk tea on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 476.16,
+            "selected_annotations": [
+              {
+                "annotation": 3,
+                "rotation_variant": false,
+                "geometry_score": 0.98878
+              },
+              {
+                "annotation": 7,
+                "rotation_variant": false,
+                "geometry_score": 0.98878
+              }
+            ]
+          },
+          {
+            "seed": 9,
+            "asset_label": "toy car",
+            "instruction": "Pick up the toy car on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 2,
+            "attempt_wall_seconds": 384.18,
+            "selected_annotations": [
+              {
+                "annotation": 69,
+                "rotation_variant": false,
+                "geometry_score": 0.57763
+              },
+              {
+                "annotation": 86,
+                "rotation_variant": false,
+                "geometry_score": 0.50564
+              },
+              {
+                "annotation": 85,
+                "rotation_variant": false,
+                "geometry_score": 0.4758
+              }
+            ]
+          },
+          {
+            "seed": 10,
+            "asset_label": "hot dog",
+            "instruction": "Pick up the hot dog on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 176.94,
+            "selected_annotations": []
+          },
+          {
+            "seed": 11,
+            "asset_label": "garage kit",
+            "instruction": "Pick up the garage kit on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 305.26,
+            "selected_annotations": [
+              {
+                "annotation": 2406,
+                "rotation_variant": true,
+                "geometry_score": 0.40597
+              }
+            ]
+          },
+          {
+            "seed": 12,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 395.64,
+            "selected_annotations": [
+              {
+                "annotation": 372,
+                "rotation_variant": false,
+                "geometry_score": 0.36308
+              }
+            ]
+          },
+          {
+            "seed": 13,
+            "asset_label": "bread",
+            "instruction": "Pick up the bread on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 196.3,
+            "selected_annotations": []
+          },
+          {
+            "seed": 14,
+            "asset_label": "shrimp",
+            "instruction": "Pick up the shrimp on the left side of the table and place it on the right side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 127.14,
+            "selected_annotations": []
+          },
+          {
+            "seed": 15,
+            "asset_label": null,
+            "instruction": null,
+            "status": "initialization_error",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 138.17,
+            "selected_annotations": []
+          }
+        ]
+      }
+    },
+    "pick_right_place_left": {
+      "recovered_seeds": [
+        0,
+        2,
+        9
+      ],
+      "regressed_seeds": [
+        12,
+        15
+      ],
+      "control": {
+        "passed": 4,
+        "trials": 16,
+        "success_without_retry": 1,
+        "mean_grasp_retries": 0.5,
+        "median_attempt_seconds": 557.16,
+        "mean_attempt_seconds": 612.42,
+        "attempts": [
+          {
+            "seed": 0,
+            "asset_label": "dinosaur",
+            "instruction": "Pick up the dinosaur on the right side of the table and place it on the left side.",
+            "status": "planning_failed",
+            "passed": false,
+            "pick_retries": 1,
+            "attempt_wall_seconds": 975.67,
+            "selected_annotations": [
+              {
+                "annotation": 20,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 12,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 1,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 4,
+            "attempt_wall_seconds": 1628.31,
+            "selected_annotations": [
+              {
+                "annotation": 1578,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2253,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 523,
+                "rotation_variant": true
+              },
+              {
+                "annotation": 1578,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2253,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 523,
+                "rotation_variant": true
+              }
+            ]
+          },
+          {
+            "seed": 2,
+            "asset_label": "sweet potato",
+            "instruction": "Pick up the sweet potato on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 935.01,
+            "selected_annotations": [
+              {
+                "annotation": 19,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 3,
+            "asset_label": "toy motorcycle",
+            "instruction": "Pick up the toy motorcycle on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 545.99,
+            "selected_annotations": []
+          },
+          {
+            "seed": 4,
+            "asset_label": "toy train",
+            "instruction": "Pick up the toy train on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 876.98,
+            "selected_annotations": [
+              {
+                "annotation": 11,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 11,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 5,
+            "asset_label": "sausage",
+            "instruction": "Pick up the sausage on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 263.08,
+            "selected_annotations": []
+          },
+          {
+            "seed": 6,
+            "asset_label": "tea strainer",
+            "instruction": "Pick up the tea strainer on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 303.63,
+            "selected_annotations": []
+          },
+          {
+            "seed": 7,
+            "asset_label": "box",
+            "instruction": "Pick up the box on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 689.65,
+            "selected_annotations": [
+              {
+                "annotation": 17,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2239,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 8,
+            "asset_label": "milk tea",
+            "instruction": "Pick up the milk tea on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 291.51,
+            "selected_annotations": [
+              {
+                "annotation": 1,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 9,
+            "asset_label": "toy car",
+            "instruction": "Pick up the toy car on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 568.34,
+            "selected_annotations": [
+              {
+                "annotation": 69,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 0,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 10,
+            "asset_label": "hot dog",
+            "instruction": "Pick up the hot dog on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 179.14,
+            "selected_annotations": []
+          },
+          {
+            "seed": 11,
+            "asset_label": "garage kit",
+            "instruction": "Pick up the garage kit on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 309.84,
+            "selected_annotations": [
+              {
+                "annotation": 902,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 12,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 1,
+            "attempt_wall_seconds": 835.35,
+            "selected_annotations": [
+              {
+                "annotation": 372,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 95,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 681,
+                "rotation_variant": false
+              }
+            ]
+          },
+          {
+            "seed": 13,
+            "asset_label": "bread",
+            "instruction": "Pick up the bread on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 211.0,
+            "selected_annotations": []
+          },
+          {
+            "seed": 14,
+            "asset_label": "shrimp",
+            "instruction": "Pick up the shrimp on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 130.2,
+            "selected_annotations": []
+          },
+          {
+            "seed": 15,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 2,
+            "attempt_wall_seconds": 1055.03,
+            "selected_annotations": [
+              {
+                "annotation": 192,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 186,
+                "rotation_variant": true
+              },
+              {
+                "annotation": 473,
+                "rotation_variant": false
+              },
+              {
+                "annotation": 2,
+                "rotation_variant": false
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "passed": 5,
+        "trials": 16,
+        "success_without_retry": 3,
+        "mean_grasp_retries": 0.438,
+        "median_attempt_seconds": 421.3,
+        "mean_attempt_seconds": 575.29,
+        "attempts": [
+          {
+            "seed": 0,
+            "asset_label": "dinosaur",
+            "instruction": "Pick up the dinosaur on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 1080.07,
+            "selected_annotations": [
+              {
+                "annotation": 135,
+                "rotation_variant": false,
+                "geometry_score": 0.8168
+              },
+              {
+                "annotation": 135,
+                "rotation_variant": true,
+                "geometry_score": 0.8168
+              }
+            ]
+          },
+          {
+            "seed": 1,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 4,
+            "attempt_wall_seconds": 1788.3,
+            "selected_annotations": [
+              {
+                "annotation": 1578,
+                "rotation_variant": false,
+                "geometry_score": 0.35752
+              },
+              {
+                "annotation": 2253,
+                "rotation_variant": false,
+                "geometry_score": 0.32589
+              },
+              {
+                "annotation": 523,
+                "rotation_variant": true,
+                "geometry_score": 0.18253
+              },
+              {
+                "annotation": 1578,
+                "rotation_variant": false,
+                "geometry_score": 0.35752
+              },
+              {
+                "annotation": 2253,
+                "rotation_variant": false,
+                "geometry_score": 0.32589
+              },
+              {
+                "annotation": 523,
+                "rotation_variant": true,
+                "geometry_score": 0.18253
+              }
+            ]
+          },
+          {
+            "seed": 2,
+            "asset_label": "sweet potato",
+            "instruction": "Pick up the sweet potato on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 1,
+            "attempt_wall_seconds": 1322.18,
+            "selected_annotations": [
+              {
+                "annotation": 38,
+                "rotation_variant": false,
+                "geometry_score": 0.87008
+              },
+              {
+                "annotation": 2510,
+                "rotation_variant": true,
+                "geometry_score": 0.21532
+              },
+              {
+                "annotation": 38,
+                "rotation_variant": false,
+                "geometry_score": 0.87008
+              }
+            ]
+          },
+          {
+            "seed": 3,
+            "asset_label": "toy motorcycle",
+            "instruction": "Pick up the toy motorcycle on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 515.64,
+            "selected_annotations": []
+          },
+          {
+            "seed": 4,
+            "asset_label": "toy train",
+            "instruction": "Pick up the toy train on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 718.69,
+            "selected_annotations": [
+              {
+                "annotation": 79,
+                "rotation_variant": false,
+                "geometry_score": 0.80347
+              },
+              {
+                "annotation": 79,
+                "rotation_variant": false,
+                "geometry_score": 0.80347
+              }
+            ]
+          },
+          {
+            "seed": 5,
+            "asset_label": "sausage",
+            "instruction": "Pick up the sausage on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 196.21,
+            "selected_annotations": []
+          },
+          {
+            "seed": 6,
+            "asset_label": "tea strainer",
+            "instruction": "Pick up the tea strainer on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 205.69,
+            "selected_annotations": []
+          },
+          {
+            "seed": 7,
+            "asset_label": "box",
+            "instruction": "Pick up the box on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 577.02,
+            "selected_annotations": [
+              {
+                "annotation": 1099,
+                "rotation_variant": true,
+                "geometry_score": 0.82733
+              },
+              {
+                "annotation": 1081,
+                "rotation_variant": true,
+                "geometry_score": 0.9854
+              }
+            ]
+          },
+          {
+            "seed": 8,
+            "asset_label": "milk tea",
+            "instruction": "Pick up the milk tea on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 256.72,
+            "selected_annotations": [
+              {
+                "annotation": 1,
+                "rotation_variant": false,
+                "geometry_score": 0.98826
+              }
+            ]
+          },
+          {
+            "seed": 9,
+            "asset_label": "toy car",
+            "instruction": "Pick up the toy car on the right side of the table and place it on the left side.",
+            "status": "accepted",
+            "passed": true,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 791.67,
+            "selected_annotations": [
+              {
+                "annotation": 69,
+                "rotation_variant": false,
+                "geometry_score": 0.57763
+              },
+              {
+                "annotation": 462,
+                "rotation_variant": true,
+                "geometry_score": 0.79502
+              }
+            ]
+          },
+          {
+            "seed": 10,
+            "asset_label": "hot dog",
+            "instruction": "Pick up the hot dog on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 174.57,
+            "selected_annotations": []
+          },
+          {
+            "seed": 11,
+            "asset_label": "garage kit",
+            "instruction": "Pick up the garage kit on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 304.78,
+            "selected_annotations": [
+              {
+                "annotation": 902,
+                "rotation_variant": false,
+                "geometry_score": 0.71749
+              }
+            ]
+          },
+          {
+            "seed": 12,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 1,
+            "attempt_wall_seconds": 574.76,
+            "selected_annotations": [
+              {
+                "annotation": 372,
+                "rotation_variant": false,
+                "geometry_score": 0.36308
+              },
+              {
+                "annotation": 95,
+                "rotation_variant": false,
+                "geometry_score": 0.90304
+              },
+              {
+                "annotation": 1049,
+                "rotation_variant": true,
+                "geometry_score": 0.86937
+              }
+            ]
+          },
+          {
+            "seed": 13,
+            "asset_label": "bread",
+            "instruction": "Pick up the bread on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 203.98,
+            "selected_annotations": []
+          },
+          {
+            "seed": 14,
+            "asset_label": "shrimp",
+            "instruction": "Pick up the shrimp on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 0,
+            "attempt_wall_seconds": 167.43,
+            "selected_annotations": []
+          },
+          {
+            "seed": 15,
+            "asset_label": "shoe",
+            "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+            "status": "execution_failed",
+            "passed": false,
+            "pick_retries": 1,
+            "attempt_wall_seconds": 326.96,
+            "selected_annotations": [
+              {
+                "annotation": 192,
+                "rotation_variant": false,
+                "geometry_score": 0.26741
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

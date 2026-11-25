@@ -1,5 +1,221 @@
 [
   {
+    "id": "pick_left_place_right_rtx5090_grasp_rank_geometry_seed04",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "rtx5090_grasp_rank_geometry_seed04",
+    "seed": 4,
+    "asset": "Toy train",
+    "frames": 615,
+    "duration_s": 20.5,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Geometry order"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "1"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      },
+      {
+        "label": "Grasp annotations",
+        "value": "#79 → #555 → #1077 → #473"
+      }
+    ],
+    "instruction": "Pick up the toy train on the left side of the table and place it on the right side.",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_geometry_seed04_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_rtx5090_grasp_rank_control_seed07",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "rtx5090_grasp_rank_control_seed07",
+    "seed": 7,
+    "asset": "Box",
+    "frames": 370,
+    "duration_s": 12.3,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Annotation order"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "0"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      },
+      {
+        "label": "Grasp annotations",
+        "value": "#17 → #17"
+      }
+    ],
+    "instruction": "Pick up the box on the left side of the table and place it on the right side.",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_control_seed07_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_rtx5090_grasp_rank_geometry_seed07",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "rtx5090_grasp_rank_geometry_seed07",
+    "seed": 7,
+    "asset": "Box",
+    "frames": 412,
+    "duration_s": 13.7,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Geometry order"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "0"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      },
+      {
+        "label": "Grasp annotations",
+        "value": "#1559 → #1559"
+      }
+    ],
+    "instruction": "Pick up the box on the left side of the table and place it on the right side.",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_geometry_seed07_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_rtx5090_grasp_rank_geometry_seed00",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "rtx5090_grasp_rank_geometry_seed00",
+    "seed": 0,
+    "asset": "Dinosaur",
+    "frames": 352,
+    "duration_s": 11.7,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Geometry order"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "0"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      },
+      {
+        "label": "Grasp annotations",
+        "value": "#135 → #135"
+      }
+    ],
+    "instruction": "Pick up the dinosaur on the right side of the table and place it on the left side.",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_geometry_seed00_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_rtx5090_grasp_rank_control_seed01",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "rtx5090_grasp_rank_control_seed01",
+    "seed": 1,
+    "asset": "Shoe",
+    "frames": 655,
+    "duration_s": 21.8,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Annotation order"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "4"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      },
+      {
+        "label": "Grasp annotations",
+        "value": "#1578 → #2253 → #523 → #1578 → #2253 → #523"
+      }
+    ],
+    "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_control_seed01_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_rtx5090_grasp_rank_geometry_seed01",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "rtx5090_grasp_rank_geometry_seed01",
+    "seed": 1,
+    "asset": "Shoe",
+    "frames": 655,
+    "duration_s": 21.8,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Geometry order"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "4"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      },
+      {
+        "label": "Grasp annotations",
+        "value": "#1578 → #2253 → #523 → #1578 → #2253 → #523"
+      }
+    ],
+    "instruction": "Pick up the shoe on the right side of the table and place it on the left side.",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_geometry_seed01_head.jpg"
+  },
+  {
     "id": "pick_left_place_right_rtx5090_regrasp_seed00",
     "task": "pick_left_place_right",
     "task_label": "Pick & Place Left → Right",

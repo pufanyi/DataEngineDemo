@@ -108,6 +108,10 @@
     .benchmark-table thead { color: var(--muted); }
     .benchmark-table tbody th { font-weight: 600; }
 
+    .grasp-geometry-figure { margin: 16px 0 0; max-width: 680px; }
+    .grasp-geometry-figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+    .grasp-geometry-figure figcaption { margin-top: 8px; }
+
     .overview-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -375,7 +379,7 @@
           </ul>
         </div>
         <div class="card">
-          <h3>Pick &amp; Place Left → Right <span class="tag-p2r">7 Episodes · RTX 5090 / L40S</span></h3>
+          <h3>Pick &amp; Place Left → Right <span class="tag-p2r">10 Episodes · RTX 5090 / L40S</span></h3>
           <ul class="spec-list">
             <li><strong>Spawn Region (Left):</strong> <code>X ∈ [-0.47, 0.00]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
             <li><strong>Bimanual Handoff:</strong> <code>x5_left</code> picks &amp; places at <code>X = +0.08</code> → Home → <code>x5_right</code> picks &amp; places at <code>X = +0.36</code></li>
@@ -384,7 +388,7 @@
           </ul>
         </div>
         <div class="card">
-          <h3>Pick &amp; Place Right → Left <span class="tag-p2l">6 Episodes · RTX 5090 / L40S</span></h3>
+          <h3>Pick &amp; Place Right → Left <span class="tag-p2l">9 Episodes · RTX 5090 / L40S</span></h3>
           <ul class="spec-list">
             <li><strong>Spawn Region (Right):</strong> <code>X ∈ [0.00, 0.47]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
             <li><strong>Bimanual Handoff:</strong> <code>x5_right</code> picks &amp; places at <code>X = -0.08</code> → Home → <code>x5_left</code> picks &amp; places at <code>X = -0.36</code></li>
@@ -437,6 +441,51 @@
           </table>
         </div>
         <p class="benchmark-note">Recovered seeds passed in the regrasp configuration and failed at baseline. Regressed seeds did the reverse. Of the two recovered left-to-right seeds, the dinosaur used two grasp retries and the toy train used zero. Median attempt time includes scene setup, planning, and rollout.</p>
+      </div>
+    </section>
+
+    <section id="grasp-geometry-benchmark">
+      <h2>RTX 5090 Pick &amp; Place Grasp Geometry Benchmark</h2>
+      <div class="card">
+        <p class="benchmark-note">64 attempts across both directions on one 8-GPU RTX 5090 node. Each direction used the same 16 seeds per configuration. Both configurations allowed two grasp retries per Pick. Geometry ordering breaks annotation-score ties by checking surface support around the gripper’s tool center point.</p>
+        <div class="benchmark-overflow">
+          <table class="benchmark-table">
+            <thead><tr>
+              <th scope="col">Direction</th>
+              <th scope="col">Annotation order</th>
+              <th scope="col">Geometry order</th>
+              <th scope="col">Passed without a retry<br>Annotation / geometry</th>
+              <th scope="col">Mean grasp retries<br>Annotation / geometry</th>
+              <th scope="col">Recovered / regressed</th>
+              <th scope="col">Median attempt time<br>Annotation / geometry</th>
+            </tr></thead>
+            <tbody>
+            <tr>
+              <th scope="row">Left → Right</th>
+              <td>3/16 (18.75%)</td>
+              <td>2/16 (12.50%)</td>
+              <td>3/16 / 1/16</td>
+              <td>0.25 / 0.31</td>
+              <td>1 / 2</td>
+              <td>7.9 / 6.5 min</td>
+            </tr>
+            <tr>
+              <th scope="row">Right → Left</th>
+              <td>4/16 (25.00%)</td>
+              <td>5/16 (31.25%)</td>
+              <td>1/16 / 3/16</td>
+              <td>0.50 / 0.44</td>
+              <td>3 / 2</td>
+              <td>9.3 / 7.0 min</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="benchmark-note">A pass requires placement in the goal region, release, and 0.5 seconds of stability. Recovered seeds passed only with geometry ordering. Regressed seeds passed only with annotation ordering. Attempt time includes scene setup, planning, and execution. The batch took 46.9 minutes through video encoding. <a href="benchmarks/dual_x5_grasp_geometry_5090.json">Per-seed results</a>.</p>
+        <figure class="grasp-geometry-figure">
+          <img src="benchmarks/dual_x5_dinosaur_tcp.png" alt="Dinosaur mesh in asset coordinates with the two planned receiving-arm tool center points marked">
+          <figcaption class="benchmark-note">In a separate L40S seed 0 pair, annotation order selected the right-arm TCP at #79 near the tail base. Geometry order selected #208 closer to the body. Both attempts passed. The plot shows the asset-frame TCP projection.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -619,6 +668,12 @@
     });
 
     const INLINE_EPISODES = [
+      {"id": "pick_left_place_right_rtx5090_grasp_rank_geometry_seed04", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_grasp_rank_geometry_seed04", "seed": 4, "asset": "Toy train", "frames": 615, "duration_s": 20.5, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "1"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#79 → #555 → #1077 → #473"}], "instruction": "Pick up the toy train on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed04_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_geometry_seed04_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_grasp_rank_control_seed07", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_grasp_rank_control_seed07", "seed": 7, "asset": "Box", "frames": 370, "duration_s": 12.3, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Annotation order"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#17 → #17"}], "instruction": "Pick up the box on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_control_seed07_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_control_seed07_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_grasp_rank_geometry_seed07", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_grasp_rank_geometry_seed07", "seed": 7, "asset": "Box", "frames": 412, "duration_s": 13.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#1559 → #1559"}], "instruction": "Pick up the box on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_grasp_rank_geometry_seed07_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_grasp_rank_geometry_seed07_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_grasp_rank_geometry_seed00", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_grasp_rank_geometry_seed00", "seed": 0, "asset": "Dinosaur", "frames": 352, "duration_s": 11.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#135 → #135"}], "instruction": "Pick up the dinosaur on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed00_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_geometry_seed00_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_grasp_rank_control_seed01", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_grasp_rank_control_seed01", "seed": 1, "asset": "Shoe", "frames": 655, "duration_s": 21.8, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Annotation order"}, {"label": "Grasp retries", "value": "4"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#1578 → #2253 → #523 → #1578 → #2253 → #523"}], "instruction": "Pick up the shoe on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_control_seed01_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_control_seed01_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_grasp_rank_geometry_seed01", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_grasp_rank_geometry_seed01", "seed": 1, "asset": "Shoe", "frames": 655, "duration_s": 21.8, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Geometry order"}, {"label": "Grasp retries", "value": "4"}, {"label": "Stable after release", "value": "0.50 s"}, {"label": "Grasp annotations", "value": "#1578 → #2253 → #523 → #1578 → #2253 → #523"}], "instruction": "Pick up the shoe on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_grasp_rank_geometry_seed01_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_grasp_rank_geometry_seed01_head.jpg"},
       {"id": "pick_left_place_right_rtx5090_regrasp_seed00", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_regrasp_seed00", "seed": 0, "asset": "Dinosaur", "frames": 502, "duration_s": 16.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "2"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the dinosaur on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed00_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed00_head.jpg"},
       {"id": "pick_left_place_right_rtx5090_regrasp_seed04", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_regrasp_seed04", "seed": 4, "asset": "Toy train", "frames": 480, "duration_s": 16.0, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the toy train on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed04_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed04_head.jpg"},
       {"id": "pick_right_place_left_rtx5090_regrasp_seed04", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_regrasp_seed04", "seed": 4, "asset": "Toy train", "frames": 329, "duration_s": 11.0, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the toy train on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_regrasp_seed04_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_regrasp_seed04_head.jpg"},

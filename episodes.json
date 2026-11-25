@@ -1,5 +1,101 @@
 [
   {
+    "id": "pick_left_place_right_rtx5090_regrasp_seed00",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "rtx5090_regrasp_seed00",
+    "seed": 0,
+    "asset": "Dinosaur",
+    "frames": 502,
+    "duration_s": 16.7,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Regrasp enabled"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "2"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      }
+    ],
+    "instruction": "Pick up the dinosaur on the left side of the table and place it on the right side.",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed00_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed00_head.jpg"
+  },
+  {
+    "id": "pick_left_place_right_rtx5090_regrasp_seed04",
+    "task": "pick_left_place_right",
+    "task_label": "Pick & Place Left → Right",
+    "slug": "rtx5090_regrasp_seed04",
+    "seed": 4,
+    "asset": "Toy train",
+    "frames": 480,
+    "duration_s": 16.0,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Regrasp enabled"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "0"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      }
+    ],
+    "instruction": "Pick up the toy train on the left side of the table and place it on the right side.",
+    "videos": {
+      "head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed04_head_cam.mp4",
+      "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_left_wrist.mp4",
+      "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_right_wrist.mp4"
+    },
+    "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed04_head.jpg"
+  },
+  {
+    "id": "pick_right_place_left_rtx5090_regrasp_seed04",
+    "task": "pick_right_place_left",
+    "task_label": "Pick & Place Right → Left",
+    "slug": "rtx5090_regrasp_seed04",
+    "seed": 4,
+    "asset": "Toy train",
+    "frames": 329,
+    "duration_s": 11.0,
+    "fps": 30,
+    "metrics": [
+      {
+        "label": "RTX 5090 run",
+        "value": "Regrasp enabled"
+      },
+      {
+        "label": "Grasp retries",
+        "value": "0"
+      },
+      {
+        "label": "Stable after release",
+        "value": "0.50 s"
+      }
+    ],
+    "instruction": "Pick up the toy train on the right side of the table and place it on the left side.",
+    "videos": {
+      "head_cam": "videos/pick_right_place_left/rtx5090_regrasp_seed04_head_cam.mp4",
+      "left_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_left_wrist.mp4",
+      "right_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_right_wrist.mp4"
+    },
+    "poster": "posters/pick_right_place_left_rtx5090_regrasp_seed04_head.jpg"
+  },
+  {
     "id": "swap_objects_randomized_seed17",
     "task": "swap_objects",
     "task_label": "Dual-Arm Swap",

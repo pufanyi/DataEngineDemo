@@ -96,6 +96,18 @@
       align-items: center;
       gap: 10px;
     }
+    .benchmark-note { color: var(--muted); font-size: 14px; }
+    .benchmark-overflow { overflow-x: auto; margin: 12px 0; }
+    .benchmark-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .benchmark-table th, .benchmark-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .benchmark-table thead { color: var(--muted); }
+    .benchmark-table tbody th { font-weight: 600; }
+
     .overview-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -363,7 +375,7 @@
           </ul>
         </div>
         <div class="card">
-          <h3>Pick &amp; Place Left → Right <span class="tag-p2r">5 Episodes · RTX 5090 / L40S</span></h3>
+          <h3>Pick &amp; Place Left → Right <span class="tag-p2r">7 Episodes · RTX 5090 / L40S</span></h3>
           <ul class="spec-list">
             <li><strong>Spawn Region (Left):</strong> <code>X ∈ [-0.47, 0.00]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
             <li><strong>Bimanual Handoff:</strong> <code>x5_left</code> picks &amp; places at <code>X = +0.08</code> → Home → <code>x5_right</code> picks &amp; places at <code>X = +0.36</code></li>
@@ -372,7 +384,7 @@
           </ul>
         </div>
         <div class="card">
-          <h3>Pick &amp; Place Right → Left <span class="tag-p2l">5 Episodes · RTX 5090 / L40S</span></h3>
+          <h3>Pick &amp; Place Right → Left <span class="tag-p2l">6 Episodes · RTX 5090 / L40S</span></h3>
           <ul class="spec-list">
             <li><strong>Spawn Region (Right):</strong> <code>X ∈ [0.00, 0.47]</code>, <code>Y ∈ [-0.06, 0.10]</code></li>
             <li><strong>Bimanual Handoff:</strong> <code>x5_right</code> picks &amp; places at <code>X = -0.08</code> → Home → <code>x5_left</code> picks &amp; places at <code>X = -0.36</code></li>
@@ -387,6 +399,44 @@
             <li><strong>Domain Randomization:</strong> Locked <code>annotated_objects</code> pool, 5 convex-hull clutter distractors (with reserved push corridor), independent table/wall/floor MDL materials, 14 room lighting presets, and 6-pose head camera jitter (±0.10 m).</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <section id="regrasp-benchmark">
+      <h2>RTX 5090 Pick &amp; Place Regrasp Benchmark</h2>
+      <div class="card">
+        <p class="benchmark-note">November 25, 2026 · RTX 5090. Each direction used the same 16 seeds with and without the regrasp change. Success required the object to reach the goal region, be released, and stay stable for 0.5 seconds.</p>
+        <div class="benchmark-overflow">
+          <table class="benchmark-table">
+            <thead><tr>
+              <th scope="col">Direction</th>
+              <th scope="col">Baseline</th>
+              <th scope="col">With regrasp</th>
+              <th scope="col">Recovered</th>
+              <th scope="col">Regressed</th>
+              <th scope="col">Median attempt time<br>Baseline / regrasp</th>
+            </tr></thead>
+            <tbody>
+            <tr>
+              <th scope="row">Left → Right</th>
+              <td>1/16 (6.25%)</td>
+              <td>3/16 (18.75%)</td>
+              <td>2</td>
+              <td>0</td>
+              <td>3.4 / 4.2 min</td>
+            </tr>
+            <tr>
+              <th scope="row">Right → Left</th>
+              <td>1/16 (6.25%)</td>
+              <td>1/16 (6.25%)</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5.0 / 5.5 min</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="benchmark-note">Recovered seeds passed in the regrasp configuration and failed at baseline. Regressed seeds did the reverse. Of the two recovered left-to-right seeds, the dinosaur used two grasp retries and the toy train used zero. Median attempt time includes scene setup, planning, and rollout.</p>
       </div>
     </section>
 
@@ -569,6 +619,9 @@
     });
 
     const INLINE_EPISODES = [
+      {"id": "pick_left_place_right_rtx5090_regrasp_seed00", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_regrasp_seed00", "seed": 0, "asset": "Dinosaur", "frames": 502, "duration_s": 16.7, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "2"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the dinosaur on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed00_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed00_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed00_head.jpg"},
+      {"id": "pick_left_place_right_rtx5090_regrasp_seed04", "task": "pick_left_place_right", "task_label": "Pick & Place Left → Right", "slug": "rtx5090_regrasp_seed04", "seed": 4, "asset": "Toy train", "frames": 480, "duration_s": 16.0, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the toy train on the left side of the table and place it on the right side.", "videos": {"head_cam": "videos/pick_left_place_right/rtx5090_regrasp_seed04_head_cam.mp4", "left_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_left_wrist.mp4", "right_wrist": "videos/pick_left_place_right/rtx5090_regrasp_seed04_right_wrist.mp4"}, "poster": "posters/pick_left_place_right_rtx5090_regrasp_seed04_head.jpg"},
+      {"id": "pick_right_place_left_rtx5090_regrasp_seed04", "task": "pick_right_place_left", "task_label": "Pick & Place Right → Left", "slug": "rtx5090_regrasp_seed04", "seed": 4, "asset": "Toy train", "frames": 329, "duration_s": 11.0, "fps": 30, "metrics": [{"label": "RTX 5090 run", "value": "Regrasp enabled"}, {"label": "Grasp retries", "value": "0"}, {"label": "Stable after release", "value": "0.50 s"}], "instruction": "Pick up the toy train on the right side of the table and place it on the left side.", "videos": {"head_cam": "videos/pick_right_place_left/rtx5090_regrasp_seed04_head_cam.mp4", "left_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_left_wrist.mp4", "right_wrist": "videos/pick_right_place_left/rtx5090_regrasp_seed04_right_wrist.mp4"}, "poster": "posters/pick_right_place_left_rtx5090_regrasp_seed04_head.jpg"},
       {"id": "swap_objects_randomized_seed17", "task": "swap_objects", "task_label": "Dual-Arm Swap", "slug": "randomized_seed17", "seed": 17, "asset": "Facial cream and pomegranate", "frames": 702, "duration_s": 23.4, "fps": 30, "metrics": [{"label": "Swap XY error", "value": "2.7 / 15.4 mm"}, {"label": "Left / right wrist travel", "value": "2.11 / 2.24 m"}, {"label": "Lighting", "value": "Red"}], "instruction": "Swap the facial cream with the pomegranate", "videos": {"head_cam": "videos/swap_objects/randomized_seed17_head_cam.mp4", "left_wrist": "videos/swap_objects/randomized_seed17_left_wrist.mp4", "right_wrist": "videos/swap_objects/randomized_seed17_right_wrist.mp4"}, "poster": "posters/swap_objects_randomized_seed17_head.jpg"},
       {"id": "press_button_randomized_seed0", "task": "press_button", "task_label": "Randomized Button Press", "slug": "randomized_seed0", "seed": 0, "asset": "Red button", "frames": 117, "duration_s": 3.9, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}, {"label": "Lighting", "value": "Deep blue"}], "instruction": "Press the red button", "videos": {"head_cam": "videos/press_button/randomized_seed0_head_cam.mp4", "left_wrist": "videos/press_button/randomized_seed0_left_wrist.mp4", "right_wrist": "videos/press_button/randomized_seed0_right_wrist.mp4"}, "poster": "posters/press_button_randomized_seed0_head.jpg"},
       {"id": "press_button_randomized_seed6", "task": "press_button", "task_label": "Randomized Button Press", "slug": "randomized_seed6", "seed": 6, "asset": "Blue button", "frames": 114, "duration_s": 3.8, "fps": 30, "metrics": [{"label": "Peak cap travel", "value": "20.0 mm"}, {"label": "Other caps", "value": "under 0.001 mm"}, {"label": "Lighting", "value": "Green"}], "instruction": "Press the blue button", "videos": {"head_cam": "videos/press_button/randomized_seed6_head_cam.mp4", "left_wrist": "videos/press_button/randomized_seed6_left_wrist.mp4", "right_wrist": "videos/press_button/randomized_seed6_right_wrist.mp4"}, "poster": "posters/press_button_randomized_seed6_head.jpg"},

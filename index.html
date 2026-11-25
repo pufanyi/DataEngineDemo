@@ -108,6 +108,10 @@
     .benchmark-table thead { color: var(--muted); }
     .benchmark-table tbody th { font-weight: 600; }
 
+    .grasp-geometry-figure { margin: 16px 0 0; max-width: 680px; }
+    .grasp-geometry-figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+    .grasp-geometry-figure figcaption { margin-top: 8px; }
+
     .overview-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -437,6 +441,16 @@
           </table>
         </div>
         <p class="benchmark-note">Recovered seeds passed in the regrasp configuration and failed at baseline. Regressed seeds did the reverse. Of the two recovered left-to-right seeds, the dinosaur used two grasp retries and the toy train used zero. Median attempt time includes scene setup, planning, and rollout.</p>
+      </div>
+    </section>
+
+    <section id="grasp-geometry-example">
+      <h2>Dual X5 Receiving-Grasp Positions</h2>
+      <div class="card">
+        <figure class="grasp-geometry-figure">
+          <img src="benchmarks/dual_x5_dinosaur_tcp.png" alt="Dinosaur mesh in asset coordinates with the two planned receiving-arm tool center points marked">
+          <figcaption class="benchmark-note">In the L40S seed 0 pair, annotation order selected the right-arm TCP at #79 near the tail base. Geometry order selected #208 closer to the body. Both attempts passed. The plot shows the asset-frame TCP projection.</figcaption>
+        </figure>
       </div>
     </section>
 

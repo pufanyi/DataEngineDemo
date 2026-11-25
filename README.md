@@ -10,4 +10,6 @@ The X5 Task Atlas links each RoboDojo preset YAML to its rollout outcomes, timin
 
 After regenerating the JSON and CSV from the native results, run `python3 scripts/embed_benchmark.py` and check synchronized playback and task selection in a browser. GitHub Pages publishes the root of `main`.
 
+The public domain uses Cloudflare Rocket Loader. The atlas and archive entry scripts use `data-cfasync="false"` so the browser can initialize each page directly.
+
 The SimBox cohort runs fixed seeds per YAML. Goal-success and execution-completion rates have separate denominators. Push-T replay reports its native pass count and quota skips separately. The site explains the render, capture, and attempt timing definitions.

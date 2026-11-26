@@ -111,6 +111,9 @@ input[type=checkbox] { accent-color: var(--green); }
 .status { display: inline-flex; border-radius: 4px; padding: 4px 7px; background: #edf0ea; color: var(--muted); font-size: 12px; line-height: 1.2; font-weight: 700; }
 .status.pass { background: var(--mint); color: var(--green); }
 .status.fail { background: var(--blush); color: var(--bad); }
+.attempt-prompt { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; padding: 9px 12px; border: 1px solid var(--line); border-left: 3px solid var(--green); border-radius: 5px; background: #f8faf6; min-width: 0; }
+.attempt-prompt .key { font: 750 10px/1.4 var(--mono); letter-spacing: .08em; color: var(--green); flex-shrink: 0; }
+.attempt-prompt p { flex: 1; min-width: 0; color: var(--ink); font-size: 14px; font-weight: 620; line-height: 1.45; overflow-wrap: anywhere; }
 .reason { margin-bottom: 13px; padding: 9px 11px; border-radius: 5px; background: #faf1eb; color: #773d2d; overflow-wrap: anywhere; }
 .player { background: var(--deep); color: #f9fcf6; padding: 10px; border-radius: 7px; }
 .camera-grid { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: 8px; align-items: stretch; }
@@ -137,6 +140,7 @@ input[type=checkbox] { accent-color: var(--green); }
 .table-wrap { overflow-x: auto; }
 .data-table th, .data-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px 5px; vertical-align: top; }
 .data-table th { color: var(--muted); white-space: nowrap; background: #f5f8f2; }
+.data-table td.prompt-cell { min-width: 190px; max-width: 360px; color: var(--ink); overflow-wrap: anywhere; }
 .data-table td:last-child { min-width: 140px; overflow-wrap: anywhere; }
 .data-table button { background: transparent; color: var(--green); border: 0; padding: 0; text-decoration: underline; }
 .empty { color: var(--muted); background: #f5f8f2; padding: 15px; border-radius: 4px; }

@@ -205,11 +205,12 @@ function countsPanel(task) {
   const rows = attempts.map((item) => `
     <tr><td><button data-seed="${escape(attemptKey(item))}" type="button" aria-label="View ${sampleLabel(task).toLowerCase()} ${escape(attemptKey(item))} recording">${escape(seedLabel(attemptKey(item)))}</button></td>
     <td><span class="status ${statusClass(item.status)}">${escape(attemptLabel(task, item.status))}</span></td>
+    <td class="prompt-cell">${escape(item.instruction || task.instruction || "–")}</td>
     <td>${metric(item.seconds, "s")}</td><td>${metric(item.renderSeconds, "s")}</td><td>${num(item.frames)}</td>
     <td>${escape([item.stage, item.reason].filter(Boolean).join(" · ") || "–")}</td></tr>`).join("");
   return `<h3>All attempts</h3><p class="detail-line" style="margin:8px 0 11px">${escape(outcomes.join(" · "))}</p>
     <dl class="attempt-meta">${measurements.map(([key, value]) => `<div class="info"><dt>${escape(key)}</dt><dd>${escape(value)}</dd></div>`).join("")}</dl>
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>${sampleLabel(task)}</th><th>Outcome</th><th>Total wall</th><th>Render time</th><th>Frames</th><th>Stage and reason</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    <div class="table-wrap"><table class="data-table"><thead><tr><th>${sampleLabel(task)}</th><th>Outcome</th><th>Prompt</th><th>Total wall</th><th>Render time</th><th>Frames</th><th>Stage and reason</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function goalEvidence(goals) {
@@ -273,8 +274,9 @@ function attemptMarkup() {
     const [x, y, yaw] = match.sampledBlockPose;
     readouts.push(["Sampled block pose", `X ${metric(x, "m", 3)} · Y ${metric(y, "m", 3)} · yaw ${metric(yaw, "°")}`]);
   }
+  const prompt = match.instruction || selectedTask.instruction;
   if (assets) readouts.push(["Selected assets", assets]);
-  if (match.instruction && match.instruction !== selectedTask.instruction) readouts.push(["Resolved instruction", match.instruction]);
+  if (match.detailedInstruction && match.detailedInstruction !== prompt) readouts.push(["Detailed prompt", match.detailedInstruction]);
   const retries = (match.infrastructureRetries ?? []).map((retry) =>
     [statusLabel(retry.status), retry.stage && readable(retry.stage), retry.reason].filter(Boolean).join(" · "));
   const replayHistory = retries.length > 0
@@ -283,6 +285,7 @@ function attemptMarkup() {
   return `<div class="seed-strip"><span class="key">${sampleLabel(selectedTask).toUpperCase()}</span>${attempts.map((item) => `<button type="button" class="seed ${statusClass(item.status)}" data-seed="${escape(attemptKey(item))}" aria-pressed="${item === match}" aria-label="${sampleLabel(selectedTask)} ${escape(attemptKey(item))} · ${escape(attemptLabel(selectedTask, item.status))}">${escape(seedLabel(attemptKey(item)))}</button>`).join("")}
   ${alternate ? `<button class="seed-shortcut" type="button" data-seed="${escape(attemptKey(alternate))}">${statusClass(match.status) === "fail" ? "Show a success" : "Show a failure"}</button>` : ""}</div>
   <div class="attempt-head"><span class="status ${statusClass(match.status)}">${escape(attemptLabel(selectedTask, match.status))}</span>${match.stage ? `<span class="key">${escape(readable(match.stage))}</span>` : ""}</div>
+  ${prompt ? `<div class="attempt-prompt"><span class="key">PROMPT</span><p>${escape(prompt)}</p></div>` : ""}
   ${match.reason ? `<p class="reason">${escape(match.reason)}</p>` : ""}${player}
   <dl class="attempt-meta">${readouts.map(([key, value]) => `<div class="info"><dt>${escape(key)}</dt><dd>${escape(value)}</dd></div>`).join("")}</dl>${goalEvidence(match.goals)}${replayHistory}`;
 }
